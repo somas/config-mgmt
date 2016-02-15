@@ -1,0 +1,13 @@
+server:
+  port: 9080
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/db_config
+    username: postgres
+    password: password123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+flyway:
+  baseline-on-migrate: true
