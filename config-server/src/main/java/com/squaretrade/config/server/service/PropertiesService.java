@@ -5,6 +5,7 @@ import com.squaretrade.config.server.dao.PropertiesRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class PropertiesService {
@@ -21,6 +22,10 @@ public class PropertiesService {
 
     public Properties getPropertyByItemKeyAndFieldKeyAndVersion(String itemKey, String fieldKey, int version) {
         return propertiesRepository.findByItemKeyAndFieldKeyAndVersion(itemKey, fieldKey, version);
+    }
+
+    public List<Integer> getVersionsByItemKeyAndFieldKey(String itemKey, String fieldKey) {
+        return propertiesRepository.findVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
     }
 
     public Properties createProperty(Properties property) {
