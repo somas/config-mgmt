@@ -4,4 +4,5 @@ import com.squaretrade.config.server.bean.Properties;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PropertiesRepository extends JpaRepository<Properties, String> {
+    public Properties findByItemKeyAndFieldKey(String itemKey, String fieldKey);
 }

@@ -15,6 +15,10 @@ public class PropertiesService {
         return propertiesRepository.findOne(propertiesId);
     }
 
+    public Properties getPropertyByItemKeyAndFieldKey(String itemKey, String fieldKey) {
+        return propertiesRepository.findByItemKeyAndFieldKey(itemKey, fieldKey);
+    }
+
     public Properties createProperty(Properties property) {
         property.setId(java.util.UUID.randomUUID().toString());
         return propertiesRepository.save(property);
