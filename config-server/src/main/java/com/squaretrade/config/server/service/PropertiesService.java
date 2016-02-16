@@ -16,7 +16,11 @@ public class PropertiesService {
     }
 
     public Properties getPropertyByItemKeyAndFieldKey(String itemKey, String fieldKey) {
-        return propertiesRepository.findByItemKeyAndFieldKey(itemKey, fieldKey);
+        return propertiesRepository.findTopByItemKeyAndFieldKeyOrderByVersionDesc(itemKey, fieldKey);
+    }
+
+    public Properties getPropertyByItemKeyAndFieldKeyAndVersion(String itemKey, String fieldKey, int version) {
+        return propertiesRepository.findByItemKeyAndFieldKeyAndVersion(itemKey, fieldKey, version);
     }
 
     public Properties createProperty(Properties property) {
@@ -25,8 +29,9 @@ public class PropertiesService {
     }
 
     public Properties updateProperty(Properties property) {
-        Properties prevVersion = getProperty(property.getId());
+        Properties prevVersion = getPropertyByItemKeyAndFieldKey(property.getItemKey(), property.getFieldKey());
         property.setVersion(prevVersion.getVersion() + 1);
+        property.setId(java.util.UUID.randomUUID().toString());
         return propertiesRepository.save(property);
     }
 }

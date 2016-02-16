@@ -22,6 +22,11 @@ public class PropertiesController {
         return propertiesService.getPropertyByItemKeyAndFieldKey(itemKey, fieldKey);
     }
 
+    @RequestMapping(value = "/{itemKey}/{fieldKey}/{version}", method = RequestMethod.GET)
+    public Properties getPropertyByItemKeyAndFieldKey(@PathVariable String itemKey, @PathVariable String fieldKey, @PathVariable int version) {
+        return propertiesService.getPropertyByItemKeyAndFieldKeyAndVersion(itemKey, fieldKey, version);
+    }
+
     @RequestMapping(method= RequestMethod.POST)
     public Properties createProperty(@RequestBody Properties properties) {
         return propertiesService.createProperty(properties);

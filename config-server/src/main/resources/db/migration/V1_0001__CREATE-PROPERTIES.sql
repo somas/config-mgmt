@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS properties (
 	description TEXT,
 	version integer,
 	last_updated TIMESTAMP,
-  CONSTRAINT property_set UNIQUE (project_id, item_key, field_key)
+  CONSTRAINT property_set UNIQUE (project_id, item_key, field_key, version)
 );
 
 insert into properties(id, project_id, item_key, field_key, description, version, last_updated) values
