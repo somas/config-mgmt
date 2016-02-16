@@ -11,7 +11,18 @@ public class PropertiesService {
     @Resource
     private PropertiesRepository propertiesRepository;
 
-    public Properties getUser(String propertiesId) {
+    public Properties getProperty(String propertiesId) {
         return propertiesRepository.findOne(propertiesId);
+    }
+
+    public Properties createProperty(Properties property) {
+        property.setId(java.util.UUID.randomUUID().toString());
+        return propertiesRepository.save(property);
+    }
+
+    public Properties updateProperty(Properties property) {
+        Properties prevVersion = getProperty(property.getId());
+        property.setVersion(prevVersion.getVersion() + 1);
+        return propertiesRepository.save(property);
     }
 }
