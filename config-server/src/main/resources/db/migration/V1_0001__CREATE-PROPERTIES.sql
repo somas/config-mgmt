@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS properties (
 	field_key VARCHAR(100),
 	description TEXT,
 	version integer,
-	last_updated TIMESTAMP
+	last_updated TIMESTAMP,
+  CONSTRAINT property_set UNIQUE (project_id, item_key, field_key)
 );
 
 insert into properties(id, project_id, item_key, field_key, description, version, last_updated) values
