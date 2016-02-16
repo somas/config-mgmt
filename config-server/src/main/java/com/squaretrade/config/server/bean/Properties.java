@@ -13,9 +13,15 @@ public class Properties {
     @Id
     private String id;
 
-    private String login;
+    private String projectId;
 
-    private String password;
+    private String itemKey;
+
+    private String fieldKey;
+
+    private String description;
+
+    private int version;
 
     @Column(name="last_updated")
     private Date timestamp;
@@ -28,20 +34,44 @@ public class Properties {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getItemKey() {
+        return itemKey;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setItemKey(String itemKey) {
+        this.itemKey = itemKey;
+    }
+
+    public String getFieldKey() {
+        return fieldKey;
+    }
+
+    public void setFieldKey(String fieldKey) {
+        this.fieldKey = fieldKey;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Date getTimestamp() {
@@ -52,4 +82,16 @@ public class Properties {
         this.timestamp = timestamp;
     }
 
+    @Override
+    public String toString() {
+        return "Properties{" +
+                "id='" + id + '\'' +
+                ", projectId='" + projectId + '\'' +
+                ", itemKey='" + itemKey + '\'' +
+                ", fieldKey='" + fieldKey + '\'' +
+                ", description='" + description + '\'' +
+                ", version=" + version +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

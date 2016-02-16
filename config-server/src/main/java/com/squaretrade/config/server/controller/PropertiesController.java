@@ -13,6 +13,6 @@ public class PropertiesController {
 
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot!" + propertiesService.getUser("1").getLogin();
+        return "Greetings from Spring Boot!" + propertiesService.getUser("1").getDescription();
     }
 }
