@@ -34,7 +34,7 @@ public class ConfigServerMain {
 class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
-    UsersRepository userRepository;
+    UsersRepository usersRepository;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -47,7 +47,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                com.squaretrade.config.server.bean.Users account = userRepository.findByUsername(username);
+                com.squaretrade.config.server.bean.Users account = usersRepository.findByUsername(username);
                 if(account != null) {
                     return new User(account.getUsername(), account.getPassword(), true, true, true, true,
                             AuthorityUtils.createAuthorityList("USER"));

@@ -1,10 +1,8 @@
 package com.squaretrade.config.server.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "properties")
@@ -23,8 +21,8 @@ public class Properties {
 
     private int version;
 
-    @Column(name="last_updated")
-    private Date timestamp;
+    @Column(insertable=true, updatable=false)
+    private Timestamp created;
 
     public String getId() {
         return id;
@@ -74,12 +72,17 @@ public class Properties {
         this.version = version;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Timestamp getCreated() {
+        return created;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    @PrePersist
+    void onCreate() {
+        this.setCreated(new Timestamp((new Date()).getTime()));
     }
 
     @Override
@@ -91,7 +94,7 @@ public class Properties {
                 ", fieldKey='" + fieldKey + '\'' +
                 ", description='" + description + '\'' +
                 ", version=" + version +
-                ", timestamp=" + timestamp +
+                ", created=" + created +
                 '}';
     }
 }

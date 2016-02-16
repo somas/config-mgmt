@@ -3,11 +3,11 @@ CREATE TABLE IF NOT EXISTS users (
 	username VARCHAR(40) NOT NULL,
 	password VARCHAR(100),
 	role VARCHAR(100),
-	created TIMESTAMP,
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP
 );
 
 insert into users(id, username, password, role, created, updated) values
-  ('1', 'somas', 'password', 'admin', LOCALTIMESTAMP, LOCALTIMESTAMP);
+  ('1', 'somas', 'password', 'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 COMMIT;

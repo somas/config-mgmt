@@ -1,10 +1,8 @@
 package com.squaretrade.config.server.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Date;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -15,7 +13,11 @@ public class Users {
     private String username;
     private String password;
     private String role;
+
+    @Column(insertable=true, updatable=false)
     private Timestamp created;
+
+    @Column(insertable=false, updatable=true)
     private Timestamp updated;
 
     public String getId() {
@@ -64,6 +66,16 @@ public class Users {
 
     public void setUpdated(Timestamp updated) {
         this.updated = updated;
+    }
+
+    @PrePersist
+    void onCreate() {
+        this.setCreated(new Timestamp((new Date()).getTime()));
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        this.setUpdated(new Timestamp((new Date()).getTime()));
     }
 
     @Override
