@@ -2,6 +2,7 @@ package com.squaretrade.config.server.service;
 
 import com.squaretrade.config.server.bean.Properties;
 import com.squaretrade.config.server.dao.PropertiesRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,6 +34,7 @@ public class PropertiesService {
         return propertiesRepository.save(property);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Properties updateProperty(Properties property) {
         Properties prevVersion = getPropertyByItemKeyAndFieldKey(property.getItemKey(), property.getFieldKey());
         property.setVersion(prevVersion.getVersion() + 1);
