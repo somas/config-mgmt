@@ -1,7 +1,7 @@
-package com.squaretrade.config.server.service;
+package com.st.config.server.service;
 
-import com.squaretrade.config.server.bean.Properties;
-import com.squaretrade.config.server.dao.PropertiesRepository;
+import com.st.config.server.bean.Properties;
+import com.st.config.server.dao.PropertiesRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 

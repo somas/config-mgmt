@@ -1,6 +1,7 @@
-package com.squaretrade.config.server.config;
+package com.st.config.server.config;
 
-import com.squaretrade.config.server.dao.UsersRepository;
+import com.st.config.server.dao.UsersRepository;
+import com.st.config.server.bean.Users;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -50,7 +51,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                com.squaretrade.config.server.bean.Users account = usersRepository.findByUsername(username);
+                Users account = usersRepository.findByUsername(username);
                 if(account != null) {
                     return new User(account.getUsername(), account.getPassword(), true, true, true, true,
                             AuthorityUtils.createAuthorityList(StringUtils.upperCase(account.getRole())));

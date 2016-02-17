@@ -1,8 +1,8 @@
-package com.squaretrade.config.server.controller;
+package com.st.config.server.controller;
 
 
-import com.squaretrade.config.server.bean.Properties;
-import com.squaretrade.config.server.service.PropertiesService;
+import com.st.config.server.bean.Properties;
+import com.st.config.server.service.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

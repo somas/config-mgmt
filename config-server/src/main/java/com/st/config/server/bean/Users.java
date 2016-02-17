@@ -1,4 +1,4 @@
-package com.squaretrade.config.server.bean;
+package com.st.config.server.bean;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

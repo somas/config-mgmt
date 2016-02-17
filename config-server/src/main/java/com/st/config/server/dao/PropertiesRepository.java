@@ -1,6 +1,6 @@
-package com.squaretrade.config.server.dao;
+package com.st.config.server.dao;
 
-import com.squaretrade.config.server.bean.Properties;
+import com.st.config.server.bean.Properties;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
