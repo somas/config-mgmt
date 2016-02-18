@@ -25,9 +25,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @SpringBootApplication
-@ComponentScan("com.squaretrade.config.server")
-@EnableJpaRepositories("com.squaretrade.config.server.dao")
-@EntityScan("com.squaretrade.config.server.bean")
+@ComponentScan("com.st.config.server")
+@EnableJpaRepositories("com.st.config.server.dao")
+@EntityScan("com.st.config.server.bean")
 public class ConfigServerMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ConfigServerMain.class, args);

@@ -11,8 +11,6 @@ public class Properties {
     @Id
     private String id;
 
-    private String projectId;
-
     private String itemKey;
 
     private String fieldKey;
@@ -30,14 +28,6 @@ public class Properties {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
     }
 
     public String getItemKey() {
@@ -89,7 +79,6 @@ public class Properties {
     public String toString() {
         return "Properties{" +
                 "id='" + id + '\'' +
-                ", projectId='" + projectId + '\'' +
                 ", itemKey='" + itemKey + '\'' +
                 ", fieldKey='" + fieldKey + '\'' +
                 ", description='" + description + '\'' +
