@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 insert into users(id, username, password, role, created, updated) values
-  ('1', 'somas', 'password', 'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+  ('1', 'somas', '$2a$10$AYiOdARBWUpUx8aCsB7qSe5f424ufry1QmYZvC0jxRjAhsuWbvxMe', 'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); --password = password
 
 COMMIT;
