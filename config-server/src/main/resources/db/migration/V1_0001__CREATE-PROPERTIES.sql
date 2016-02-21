@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS properties (
 );
 
 insert into properties(id, item_key, field_key, description, version, created) values
-  ('1', 'amazon', 'integration', '{x:y}', 1, CURRENT_TIMESTAMP);
+  ('1', 'amazon', 'integration', '{"x":"y"}', 1, CURRENT_TIMESTAMP);
 
 COMMIT;
