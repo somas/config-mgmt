@@ -8,6 +8,7 @@ import com.st.config.client.service.impl.GlobalScopedParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -42,6 +43,12 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${config.server.url}")
+    private String url;
+
+    @Value("${config.server.auth}")
+    private String auth;
+
     /**
      * This is for base properties stored in
      * GLOBAL/DEFAULT, ENVIRONMENT/DEV, ../INT, ../QA, ../STAGE, ../PROD
@@ -56,7 +63,7 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
 
     private void initializeProperties(String itemKey, String fieldKey) {
         ResponseEntity<Properties> entity = restTemplate.exchange
-                ("http://localhost:9080/properties/{itemKey}/{fieldKey}", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class, itemKey, fieldKey);
+                (url + "/properties/{itemKey}/{fieldKey}", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class, itemKey, fieldKey);
         if (entity == null || entity.getBody() == null) {
             logger.info("Missing property configuration for : ItemKey: " + itemKey + " FieldKey: " + fieldKey);
             return;
@@ -78,7 +85,7 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     HttpHeaders createHeaders( ){
         return new HttpHeaders(){
             {
-                String authHeader = "Basic " + new String( "c29tYXM6cGFzc3dvcmQ=" );
+                String authHeader = "Basic " + auth;
                 set( "Authorization", authHeader );
             }
         };
