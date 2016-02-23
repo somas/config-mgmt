@@ -11,6 +11,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
+import org.springframework.jmx.export.annotation.ManagedOperationParameters;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,6 +25,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@ManagedResource(
+        objectName="GlobalScopedParam:type=bean",
+        description="GlobalScoped Parameters" )
 public class GlobalScopedParamsImpl {
     private static final Logger logger = LoggerFactory.getLogger(GlobalScopedParamsImpl.class);
     private ConcurrentHashMap<String, Map<String, Object>> propertiesMap = new ConcurrentHashMap<>();
@@ -117,12 +124,26 @@ public class GlobalScopedParamsImpl {
         return getMapOfString(itemKey, fieldKey, key);
     }
 
+    @ManagedOperation(description="get property")
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(
+                    name="itemKey",
+                    description="itemKey"),
+            @ManagedOperationParameter(
+                    name="fieldKey",
+                    description="fieldKey"),
+            @ManagedOperationParameter(
+                    name="key",
+                    description="key"),
+            @ManagedOperationParameter(
+                    name="defaultValue",
+                    description="defaultValue")})
     public String get(String itemKey, String fieldKey, String key, String defaultVal) {
         if (propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey)) == null) {
             initializeProperties(itemKey, fieldKey);
         }
         Map<String, Object> tempMap = propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey));
-        return (tempMap != null) ? (String) tempMap.get(key) : defaultVal;
+        return (tempMap != null && tempMap.get(key) != null) ? (String) tempMap.get(key) : defaultVal;
     }
 
     public String get(String itemKey, String fieldKey, String key) {
