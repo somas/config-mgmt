@@ -1,9 +1,10 @@
-package com.st.config.client.service.impl;
+package com.st.config.client.service;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.st.config.client.bean.Properties;
+import com.st.config.client.service.impl.GlobalScopedParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
