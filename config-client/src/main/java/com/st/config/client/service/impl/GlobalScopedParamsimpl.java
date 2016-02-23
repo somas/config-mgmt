@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedResource(
         objectName="GlobalScopedParam:type=bean",
         description="GlobalScoped Parameters" )
-public class GlobalScopedParamsImpl {
+public class GlobalScopedParamsImpl implements GlobalScopedParams {
     private static final Logger logger = LoggerFactory.getLogger(GlobalScopedParamsImpl.class);
     private ConcurrentHashMap<String, Map<String, Object>> propertiesMap = new ConcurrentHashMap<>();
     private static final String KEY_SEPARATOR = "_||_";
@@ -74,14 +74,6 @@ public class GlobalScopedParamsImpl {
         addOrUpdatePropertiesMap(itemKey, fieldKey, map);
     }
 
-    public void buildProperty() throws IOException {
-        ResponseEntity<Properties> entity = restTemplate.exchange
-                ("http://localhost:9080/properties/1", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class);
-        Properties properties = entity.getBody();
-        Map<String, Object> propMap = getPropertiesMapFromText(properties.getDescription());
-        addOrUpdatePropertiesMap(properties.getItemKey(), properties.getFieldKey(), propMap);
-    }
-
     HttpHeaders createHeaders( ){
         return new HttpHeaders(){
             {
@@ -124,6 +116,7 @@ public class GlobalScopedParamsImpl {
         return getMapOfString(itemKey, fieldKey, key);
     }
 
+    @Override
     @ManagedOperation(description="get property")
     @ManagedOperationParameters({
             @ManagedOperationParameter(
@@ -146,6 +139,7 @@ public class GlobalScopedParamsImpl {
         return (tempMap != null && tempMap.get(key) != null) ? (String) tempMap.get(key) : defaultVal;
     }
 
+    @Override
     public String get(String itemKey, String fieldKey, String key) {
         return this.get(itemKey, fieldKey, key, null);
     }
