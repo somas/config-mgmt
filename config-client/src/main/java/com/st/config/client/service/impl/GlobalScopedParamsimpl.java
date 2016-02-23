@@ -1,11 +1,11 @@
 package com.st.config.client.service.impl;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.st.config.client.bean.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +22,50 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class GlobalScopedParamsImpl {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalScopedParamsImpl.class);
+    private ConcurrentHashMap<String, Map<String, Object>> propertiesMap = new ConcurrentHashMap<>();
+    private static final String KEY_SEPARATOR = "_||_";
+    private static final String ENV_SPECIFIC_IK = "ENV";
+    private static final String DEFAULT_FK = "DEFAULT";
+    private static final String GLOBAL_IK = "GLOBAL";
+
+    private String environment = (System.getProperty(ENV_SPECIFIC_IK) == null) ? "DEV" : System.getProperty(ENV_SPECIFIC_IK);
 
     @Autowired
     private RestTemplate restTemplate;
 
-    private ConcurrentHashMap<String, Map<String, Object>> propertiesMap = new ConcurrentHashMap<>();
-    private static final String KEY_SEPARATOR = "_||_";
+    /**
+     * This is for base properties stored in
+     * GLOBAL/DEFAULT, ENVIRONMENT/DEV, ../INT, ../QA, ../STAGE, ../PROD
+     *
+     */
+    @PostConstruct
+    protected void initialize() {
+        environment = (System.getProperty(ENV_SPECIFIC_IK) == null) ? "DEV" : System.getProperty(ENV_SPECIFIC_IK);
+        initializeProperties(GLOBAL_IK, DEFAULT_FK);
+        initializeProperties(ENV_SPECIFIC_IK, environment);
+    }
+
+    private void initializeProperties(String itemKey, String fieldKey) {
+        ResponseEntity<Properties> entity = restTemplate.exchange
+                ("http://localhost:9080/properties/{itemKey}/{fieldKey}", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class, itemKey, fieldKey);
+        if (entity == null || entity.getBody() == null) {
+            logger.info("Missing property configuration for : ItemKey: " + itemKey + " FieldKey: " + fieldKey);
+            return;
+        }
+        Properties properties = entity.getBody();
+
+        Map<String, Object> map = null;
+        try {
+            map = getPropertiesMapFromText(properties.getDescription());
+            map.put("x_date_created", properties.getCreated());
+            map.put("x_version", properties.getVersion());
+        } catch (IOException e) {
+            logger.error("Error while reading property: ItemKey : " + itemKey + " , FieldKey : " + fieldKey, e);
+            throw new RuntimeException(e); // technically we should never get here unless there was a database corruption
+        }
+        addOrUpdatePropertiesMap(itemKey, fieldKey, map);
+    }
 
     public void buildProperty() throws IOException {
         ResponseEntity<Properties> entity = restTemplate.exchange
@@ -34,11 +73,6 @@ public class GlobalScopedParamsImpl {
         Properties properties = entity.getBody();
         Map<String, Object> propMap = getPropertiesMapFromText(properties.getDescription());
         addOrUpdatePropertiesMap(properties.getItemKey(), properties.getFieldKey(), propMap);
-    }
-
-    public String getProperty(String ik, String fk, String key) {
-        Map<String, Object> mapOfProperties =  propertiesMap.get(buildKeyFromIKFK(ik, fk));
-        return (mapOfProperties != null) ? (String) mapOfProperties.get(key) : null;
     }
 
     HttpHeaders createHeaders( ){
@@ -70,4 +104,28 @@ public class GlobalScopedParamsImpl {
         return itemKey + KEY_SEPARATOR + fieldKey;
     }
 
+    @SuppressWarnings("unchecked")
+    public Map<String, String> getMapOfString(String itemKey, String fieldKey, String key) {
+        if (propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey)) == null) {
+            initializeProperties(itemKey, fieldKey);
+        }
+        Map<String, Object> tempMap = propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey));
+        return (tempMap != null) ? (Map<String, String>) tempMap.get(key) : null;
+    }
+
+    public Map<String, String> getMap(String itemKey, String fieldKey, String key) {
+        return getMapOfString(itemKey, fieldKey, key);
+    }
+
+    public String get(String itemKey, String fieldKey, String key, String defaultVal) {
+        if (propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey)) == null) {
+            initializeProperties(itemKey, fieldKey);
+        }
+        Map<String, Object> tempMap = propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey));
+        return (tempMap != null) ? (String) tempMap.get(key) : defaultVal;
+    }
+
+    public String get(String itemKey, String fieldKey, String key) {
+        return this.get(itemKey, fieldKey, key, null);
+    }
 }

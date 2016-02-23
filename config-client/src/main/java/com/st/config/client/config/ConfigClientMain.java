@@ -26,7 +26,7 @@ public class ConfigClientMain implements CommandLineRunner {
 
     public void run(String... strings) throws Exception {
         globalScopedParams.buildProperty();
-        log.info(globalScopedParams.getProperty("amazon", "integration", "x"));
+        log.info(globalScopedParams.get("amazon", "integration", "x"));
     }
 
     @Bean
