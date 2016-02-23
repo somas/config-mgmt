@@ -1,0 +1,4 @@
+config_client:
+  image: config-mgmt/config-client
+  ports:
+    - "9090:9090"
