@@ -4,3 +4,8 @@ config:
   server:
     url: 192.168.99.100:9080
     auth: c29tYXM6cGFzc3dvcmQ=
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/

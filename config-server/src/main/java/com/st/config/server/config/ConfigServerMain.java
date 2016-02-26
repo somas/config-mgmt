@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan("com.st.config.server")
 @EnableJpaRepositories("com.st.config.server.dao")
 @EntityScan("com.st.config.server.bean")
+@EnableDiscoveryClient
 public class ConfigServerMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ConfigServerMain.class, args);

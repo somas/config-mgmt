@@ -2,3 +2,4 @@ rootProject.name = 'config-mgmt'
 
 include 'config-server'
 include 'config-client'
+include 'discovery-server'

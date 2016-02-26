@@ -11,3 +11,7 @@ spring:
       ddl-auto: validate
 flyway:
   baseline-on-migrate: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
