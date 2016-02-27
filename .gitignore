@@ -1,7 +1,5 @@
 **/.gradle/**
 **/.idea/**
-config-mgmt.iml
-**/config-server.iml
-**/config-client.iml
+**/*.iml
 **/.DS_Store
 **/build
