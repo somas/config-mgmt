@@ -4,7 +4,9 @@ config:
   server:
     url: 192.168.99.100:9080
     auth: c29tYXM6cGFzc3dvcmQ=
-
+spring:
+  application:
+    name: config-client
 eureka:
   client:
     serviceUrl:
