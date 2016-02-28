@@ -54,7 +54,7 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
      * GLOBAL/DEFAULT, ENVIRONMENT/DEV, ../INT, ../QA, ../STAGE, ../PROD
      *
      */
-    @PostConstruct
+    //@PostConstruct - TODO SmartLifeCycle
     protected void initialize() {
         environment = (System.getProperty(ENV_SPECIFIC_IK) == null) ? "DEV" : System.getProperty(ENV_SPECIFIC_IK);
         initializeProperties(GLOBAL_IK, DEFAULT_FK);
@@ -63,7 +63,7 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
 
     private void initializeProperties(String itemKey, String fieldKey) {
         ResponseEntity<Properties> entity = restTemplate.exchange
-                (url + "/properties/{itemKey}/{fieldKey}", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class, itemKey, fieldKey);
+                ("http://CONFIG-SERVER/properties/{itemKey}/{fieldKey}", HttpMethod.GET, new HttpEntity<>(createHeaders()), Properties.class, itemKey, fieldKey);
         if (entity == null || entity.getBody() == null) {
             logger.info("Missing property configuration for : ItemKey: " + itemKey + " FieldKey: " + fieldKey);
             return;
