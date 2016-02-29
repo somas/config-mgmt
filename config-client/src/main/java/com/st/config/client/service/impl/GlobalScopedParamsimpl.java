@@ -1,4 +1,4 @@
-package com.st.config.client.service;
+package com.st.config.client.service.impl;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.SmartLifecycle;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,11 +21,11 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @ManagedResource(
@@ -52,10 +53,8 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     /**
      * This is for base properties stored in
      * GLOBAL/DEFAULT, ENVIRONMENT/DEV, ../INT, ../QA, ../STAGE, ../PROD
-     *
      */
-    //@PostConstruct - TODO SmartLifeCycle
-    protected void initialize() {
+    void initialize() {
         environment = (System.getProperty(ENV_SPECIFIC_IK) == null) ? "DEV" : System.getProperty(ENV_SPECIFIC_IK);
         initializeProperties(GLOBAL_IK, DEFAULT_FK);
         initializeProperties(ENV_SPECIFIC_IK, environment);
@@ -82,11 +81,11 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
         addOrUpdatePropertiesMap(itemKey, fieldKey, map);
     }
 
-    HttpHeaders createHeaders( ){
-        return new HttpHeaders(){
+    HttpHeaders createHeaders() {
+        return new HttpHeaders() {
             {
                 String authHeader = "Basic " + auth;
-                set( "Authorization", authHeader );
+                set("Authorization", authHeader);
             }
         };
     }
@@ -125,20 +124,20 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     }
 
     @Override
-    @ManagedOperation(description="get property")
+    @ManagedOperation(description = "get property")
     @ManagedOperationParameters({
             @ManagedOperationParameter(
-                    name="itemKey",
-                    description="itemKey"),
+                    name = "itemKey",
+                    description = "itemKey"),
             @ManagedOperationParameter(
-                    name="fieldKey",
-                    description="fieldKey"),
+                    name = "fieldKey",
+                    description = "fieldKey"),
             @ManagedOperationParameter(
-                    name="key",
-                    description="key"),
+                    name = "key",
+                    description = "key"),
             @ManagedOperationParameter(
-                    name="defaultValue",
-                    description="defaultValue")})
+                    name = "defaultValue",
+                    description = "defaultValue")})
     public String get(String itemKey, String fieldKey, String key, String defaultVal) {
         if (propertiesMap.get(buildKeyFromIKFK(itemKey, fieldKey)) == null) {
             initializeProperties(itemKey, fieldKey);
