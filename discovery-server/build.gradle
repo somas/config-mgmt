@@ -36,6 +36,9 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
+springBoot  {
+    requiresUnpack = ['com.netflix.eureka:eureka-client','com.netflix.eureka:eureka-core']
+}
 
 buildscript {
     dependencies {
