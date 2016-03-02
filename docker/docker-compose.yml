@@ -8,6 +8,8 @@ services:
       - "8761:8761"
   config_server:
     image: config-mgmt/config-server
+    expose:
+      - "9080"
     ports:
       - "9080:9080"
     links:
