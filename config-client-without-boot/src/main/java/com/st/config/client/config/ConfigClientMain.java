@@ -1,31 +1,16 @@
 package com.st.config.client.config;
 
 import com.netflix.appinfo.MyDataCenterInstanceConfig;
-import com.netflix.client.ClientFactory;
 import com.netflix.discovery.DefaultEurekaClientConfig;
 import com.netflix.discovery.DiscoveryManager;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.loadbalancer.*;
-import com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList;
-import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
-import com.st.config.client.bean.Properties;
 import com.st.config.client.service.PropertiesCtrl;
 import com.st.config.client.service.impl.GlobalScopedParams;
 import feign.Feign;
-import feign.Request;
-import feign.RequestTemplate;
-import feign.Target;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.ribbon.LoadBalancingTarget;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
-
-import java.net.URI;
-
-import static feign.Util.checkNotNull;
-import static java.lang.String.format;
 
 @Configuration
 @EnableMBeanExport
