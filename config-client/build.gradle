@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter"
-    compile "org.springframework.boot:spring-boot-starter-web"
+    //compile "org.springframework.boot:spring-boot-starter-web"
     compile "com.fasterxml.jackson.core:jackson-databind"
     compile "commons-configuration:commons-configuration:1.10"
     compile "org.springframework.boot:spring-boot-starter-actuator"

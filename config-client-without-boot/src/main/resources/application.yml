@@ -1,0 +1,15 @@
+server:
+  port: 9090
+config:
+  server:
+    url: 192.168.99.100:9080
+    auth: c29tYXM6cGFzc3dvcmQ=
+spring:
+  application:
+    name: config-client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/,http://discovery-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
