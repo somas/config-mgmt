@@ -44,18 +44,7 @@ import javax.jms.Session;
 @EnableJms
 public class ConfigServerMain {
     public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext context = SpringApplication.run(ConfigServerMain.class, args);
-
-        // Send a message
-        MessageCreator messageCreator = new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage("ping!");
-            }
-        };
-        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-        System.out.println("------------------Sending a new message.--------------------");
-        jmsTemplate.send("mailbox-destination", messageCreator);
+       SpringApplication.run(ConfigServerMain.class, args);
     }
 }
 

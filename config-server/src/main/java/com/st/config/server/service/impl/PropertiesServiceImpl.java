@@ -2,7 +2,9 @@ package com.st.config.server.service.impl;
 
 import com.st.config.server.bean.Properties;
 import com.st.config.server.dao.PropertiesRepository;
+import com.st.config.server.message.RefreshClientMsgCreator;
 import com.st.config.server.service.PropertiesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,9 @@ import java.util.List;
 public class PropertiesServiceImpl implements PropertiesService {
     @Resource
     private PropertiesRepository propertiesRepository;
+
+    @Autowired
+    private RefreshClientMsgCreator clientMsgCreator;
 
     public Properties getProperty(String propertiesId) {
         return propertiesRepository.findOne(propertiesId);
@@ -32,13 +37,17 @@ public class PropertiesServiceImpl implements PropertiesService {
 
     public Properties createProperty(Properties property) {
         property.setId(java.util.UUID.randomUUID().toString());
-        return propertiesRepository.save(property);
+        Properties postCreateProperty = propertiesRepository.save(property);
+        clientMsgCreator.createMessage(property.getItemKey(), property.getFieldKey());
+        return postCreateProperty;
     }
 
     public Properties updateProperty(Properties property) {
         Properties prevVersion = getPropertyByItemKeyAndFieldKey(property.getItemKey(), property.getFieldKey());
         property.setVersion(prevVersion.getVersion() + 1);
         property.setId(java.util.UUID.randomUUID().toString());
-        return propertiesRepository.save(property);
+        Properties postUpdateProperty = propertiesRepository.save(property);
+        clientMsgCreator.createMessage(property.getItemKey(), property.getFieldKey());
+        return postUpdateProperty;
     }
 }

@@ -5,14 +5,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class Receiver {
 
     @Autowired
-    ConfigurableApplicationContext context;
+    private ConfigurableApplicationContext context;
 
-    @JmsListener(destination = "mailbox-destination")
-    public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">");
+    @JmsListener(destination = "client-refresh")
+    public void processMessage(Map message) {
+        System.out.println("Consumed map message number {} " + message);
     }
 }
