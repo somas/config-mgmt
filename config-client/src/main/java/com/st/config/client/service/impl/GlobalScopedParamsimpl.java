@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.st.config.client.bean.Properties;
-import com.st.config.client.service.impl.GlobalScopedParams;
+import com.st.config.client.service.GlobalScopedParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.SmartLifecycle;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @ManagedResource(
@@ -149,5 +147,10 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     @Override
     public String get(String itemKey, String fieldKey, String key) {
         return this.get(itemKey, fieldKey, key, null);
+    }
+
+    @Override
+    public void reinitialize(String itemKey, String fieldKey) {
+        initializeProperties(itemKey, fieldKey);
     }
 }
