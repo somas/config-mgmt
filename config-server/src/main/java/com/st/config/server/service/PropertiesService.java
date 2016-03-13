@@ -1,44 +1,22 @@
 package com.st.config.server.service;
 
 import com.st.config.server.bean.Properties;
-import com.st.config.server.dao.PropertiesRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Component
-public class PropertiesService {
-    @Resource
-    private PropertiesRepository propertiesRepository;
+public interface PropertiesService {
 
-    public Properties getProperty(String propertiesId) {
-        return propertiesRepository.findOne(propertiesId);
-    }
+    Properties getProperty(String propertiesId);
 
-    public Properties getPropertyByItemKeyAndFieldKey(String itemKey, String fieldKey) {
-        return propertiesRepository.findTopByItemKeyAndFieldKeyOrderByVersionDesc(itemKey, fieldKey);
-    }
+    Properties getPropertyByItemKeyAndFieldKey(String itemKey, String fieldKey);
 
-    public Properties getPropertyByItemKeyAndFieldKeyAndVersion(String itemKey, String fieldKey, int version) {
-        return propertiesRepository.findByItemKeyAndFieldKeyAndVersion(itemKey, fieldKey, version);
-    }
+    Properties getPropertyByItemKeyAndFieldKeyAndVersion(String itemKey, String fieldKey, int version);
 
-    public List<Integer> getVersionsByItemKeyAndFieldKey(String itemKey, String fieldKey) {
-        return propertiesRepository.findVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
-    }
+    List<Integer> getVersionsByItemKeyAndFieldKey(String itemKey, String fieldKey);
 
-    public Properties createProperty(Properties property) {
-        property.setId(java.util.UUID.randomUUID().toString());
-        return propertiesRepository.save(property);
-    }
+    Properties createProperty(Properties property);
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Properties updateProperty(Properties property) {
-        Properties prevVersion = getPropertyByItemKeyAndFieldKey(property.getItemKey(), property.getFieldKey());
-        property.setVersion(prevVersion.getVersion() + 1);
-        property.setId(java.util.UUID.randomUUID().toString());
-        return propertiesRepository.save(property);
-    }
+    Properties updateProperty(Properties property);
 }
