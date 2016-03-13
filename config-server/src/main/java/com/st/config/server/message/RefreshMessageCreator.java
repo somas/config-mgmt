@@ -11,7 +11,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 
 @Component
-public class RefreshClientMsgCreator {
+public class RefreshMessageCreator {
 
     @Autowired
     private JmsTemplate jmsTemplate;
