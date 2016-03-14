@@ -2,7 +2,7 @@ package com.st.config.server.service.impl;
 
 import com.st.config.server.bean.Properties;
 import com.st.config.server.dao.PropertiesRepository;
-import com.st.config.server.message.RefreshMessageCreator;
+import com.st.config.server.message.RefreshMessageProducer;
 import com.st.config.server.service.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ public class PropertiesServiceImpl implements PropertiesService {
     private PropertiesRepository propertiesRepository;
 
     @Autowired
-    private RefreshMessageCreator refreshMessageCreator;
+    private RefreshMessageProducer refreshMessageProducer;
 
     public Properties getProperty(String propertiesId) {
         return propertiesRepository.findOne(propertiesId);
@@ -37,7 +37,7 @@ public class PropertiesServiceImpl implements PropertiesService {
     public Properties createProperty(Properties property) {
         property.setId(java.util.UUID.randomUUID().toString());
         Properties postCreateProperty = propertiesRepository.save(property);
-        refreshMessageCreator.createMessage(property.getItemKey(), property.getFieldKey());
+        refreshMessageProducer.createMessage(property.getItemKey(), property.getFieldKey());
         return postCreateProperty;
     }
 
@@ -46,7 +46,7 @@ public class PropertiesServiceImpl implements PropertiesService {
         property.setVersion(prevVersion.getVersion() + 1);
         property.setId(java.util.UUID.randomUUID().toString());
         Properties postUpdateProperty = propertiesRepository.save(property);
-        refreshMessageCreator.createMessage(property.getItemKey(), property.getFieldKey());
+        refreshMessageProducer.createMessage(property.getItemKey(), property.getFieldKey());
         return postUpdateProperty;
     }
 }

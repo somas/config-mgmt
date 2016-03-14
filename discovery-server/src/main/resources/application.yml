@@ -7,7 +7,9 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: false
   instance:
     prefer-ip-address: true
+
 
 spring.cloud.config.enabled: false

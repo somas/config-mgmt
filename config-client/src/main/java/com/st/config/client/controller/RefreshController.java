@@ -15,8 +15,9 @@ public class RefreshController {
     @Autowired
     private GlobalScopedParams globalScopedParams;
 
-    @RequestMapping(value = "/{itemKey}/{fieldKey}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/refresh/{itemKey}/{fieldKey}", method = RequestMethod.PUT)
     public void refresh(@PathVariable String itemKey, @PathVariable String fieldKey) {
+        System.out.println("refreshed");
         globalScopedParams.reinitialize(itemKey, fieldKey);
     }
 

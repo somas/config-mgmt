@@ -13,3 +13,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka/,http://discovery-server:8761/eureka/
   instance:
     prefer-ip-address: true
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}

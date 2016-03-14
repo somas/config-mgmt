@@ -12,7 +12,7 @@ public class GlobalScopedParamsLifecycleListener implements SmartLifecycle {
     private static final Logger logger = LoggerFactory.getLogger(GlobalScopedParamsLifecycleListener.class);
 
     @Autowired
-    private com.st.config.client.service.impl.GlobalScopedParams globalScopedParams;
+    private com.st.config.client.service.GlobalScopedParams globalScopedParams;
 
     @Override
     public void start() {

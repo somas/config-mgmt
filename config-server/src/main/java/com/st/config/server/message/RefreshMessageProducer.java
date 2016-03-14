@@ -11,7 +11,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 
 @Component
-public class RefreshMessageCreator {
+public class RefreshMessageProducer {
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -27,7 +27,7 @@ public class RefreshMessageCreator {
                 return messageMap;
             }
         };
-       // JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+        // JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
         jmsTemplate.send("client-refresh", messageCreator);
     }
 }
