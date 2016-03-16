@@ -21,6 +21,10 @@ public class Properties {
 
     private int version;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="audit_id", referencedColumnName="id")
+    private AuditLog auditLog;
+
     @Column(insertable=true, updatable=false)
     private Timestamp created;
 

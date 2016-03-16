@@ -6,6 +6,7 @@ import com.st.config.server.service.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -35,12 +36,13 @@ public class PropertiesController {
     }
 
     @RequestMapping(method= RequestMethod.POST)
-    public Properties createProperty(@RequestBody Properties properties) {
-        return propertiesService.createProperty(properties);
+    public Properties createProperty(@RequestBody Properties properties, Principal principal) {
+        return propertiesService.createProperty(properties, principal.getName());
     }
 
     @RequestMapping(method= RequestMethod.PUT)
-    public Properties updateProperty(@RequestBody Properties properties) {
-        return propertiesService.updateProperty(properties);
+    public Properties updateProperty(@RequestBody Properties properties, Principal principal) {
+        return propertiesService.updateProperty(properties, principal.getName());
     }
+
 }

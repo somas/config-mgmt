@@ -1,5 +1,6 @@
 package com.st.config.server.service.impl;
 
+import com.st.config.server.bean.AuditLog;
 import com.st.config.server.bean.Properties;
 import com.st.config.server.dao.PropertiesRepository;
 import com.st.config.server.message.RefreshMessageProducer;
@@ -34,19 +35,28 @@ public class PropertiesServiceImpl implements PropertiesService {
         return propertiesRepository.findVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
     }
 
-    public Properties createProperty(Properties property) {
+    public Properties createProperty(Properties property, String principalName) {
         property.setId(java.util.UUID.randomUUID().toString());
+        property.setAuditLog(buildAuditLog(property, principalName));
         Properties postCreateProperty = propertiesRepository.save(property);
         refreshMessageProducer.createMessage(property.getItemKey(), property.getFieldKey());
         return postCreateProperty;
     }
 
-    public Properties updateProperty(Properties property) {
+    public Properties updateProperty(Properties property, String principalName) {
         Properties prevVersion = getPropertyByItemKeyAndFieldKey(property.getItemKey(), property.getFieldKey());
         property.setVersion(prevVersion.getVersion() + 1);
         property.setId(java.util.UUID.randomUUID().toString());
+        property.setAuditLog(buildAuditLog(property, principalName));
         Properties postUpdateProperty = propertiesRepository.save(property);
         refreshMessageProducer.createMessage(property.getItemKey(), property.getFieldKey());
         return postUpdateProperty;
+    }
+
+    private AuditLog buildAuditLog(Properties property, String principalName) {
+        AuditLog auditLog = new AuditLog();
+        auditLog.setId(java.util.UUID.randomUUID().toString());
+        auditLog.setUserId(principalName);
+        return auditLog;
     }
 }

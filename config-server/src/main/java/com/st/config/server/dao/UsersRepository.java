@@ -1,8 +1,8 @@
 package com.st.config.server.dao;
 
-import com.st.config.server.bean.Users;
+import com.st.config.server.bean.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsersRepository extends JpaRepository<Users, String> {
-    Users findByUsername(String username);
+public interface UsersRepository extends JpaRepository<User, String> {
+    User findByUsername(String username);
 }

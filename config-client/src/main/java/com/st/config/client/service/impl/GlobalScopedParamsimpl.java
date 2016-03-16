@@ -153,4 +153,5 @@ public class GlobalScopedParamsImpl implements GlobalScopedParams {
     public void reinitialize(String itemKey, String fieldKey) {
         initializeProperties(itemKey, fieldKey);
     }
+
 }

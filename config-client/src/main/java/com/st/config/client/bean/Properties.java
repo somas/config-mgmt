@@ -1,9 +1,9 @@
 package com.st.config.client.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import java.sql.Timestamp;
-import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

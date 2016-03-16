@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS properties (
 	item_key VARCHAR(100),
 	field_key VARCHAR(100),
 	description TEXT,
+  audit_id VARCHAR(40) references audit_log(id),
 	version INTEGER,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT property_set UNIQUE (item_key, field_key, version)

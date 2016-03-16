@@ -1,6 +1,6 @@
 package com.st.config.server.config;
 
-import com.st.config.server.bean.Users;
+import com.st.config.server.bean.User;
 import com.st.config.server.dao.UsersRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -69,9 +68,9 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                Users account = usersRepository.findByUsername(username);
+                User account = usersRepository.findByUsername(username);
                 if(account != null) {
-                    return new User(account.getUsername(), account.getPassword(), true, true, true, true,
+                    return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(), true, true, true, true,
                             AuthorityUtils.createAuthorityList(StringUtils.upperCase(account.getRole())));
                 } else {
                     throw new UsernameNotFoundException("could not find the user '"

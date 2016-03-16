@@ -15,8 +15,8 @@ public interface PropertiesService {
 
     List<Integer> getVersionsByItemKeyAndFieldKey(String itemKey, String fieldKey);
 
-    Properties createProperty(Properties property);
+    Properties createProperty(Properties property, String principalName);
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    Properties updateProperty(Properties property);
+    Properties updateProperty(Properties property, String principalName);
 }
