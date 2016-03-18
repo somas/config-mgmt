@@ -2,5 +2,6 @@ rootProject.name = 'config-mgmt'
 
 include 'config-server'
 include 'config-client'
+include 'config-ui'
 include 'discovery-server'
 include 'config-client-without-boot'

@@ -1,0 +1,24 @@
+apply plugin: 'java'
+
+/**
+ * Grunt Related Tasks
+ */
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-grunt-plugin:0.9'
+    }
+}
+
+apply plugin: 'com.moowork.grunt'
+
+node {
+    version = '0.10.22' // Version of node
+    download = true
+    workDir = file("nodejs")
+}
+
+grunt_build.dependsOn 'npmInstall'
