@@ -28,6 +28,8 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-starter-eureka:1.0.0.RELEASE"
     compile "org.springframework.cloud:spring-cloud-commons:1.0.0.RELEASE"
     compile "org.apache.activemq:activemq-broker"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
