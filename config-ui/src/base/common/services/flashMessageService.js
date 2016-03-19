@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-angular.module('portalApp').factory('flashMessageService', ['$translate', '$rootScope', function($translate, $rootScope) {
+angular.module('configApp').factory('flashMessageService', ['$translate', '$rootScope', function($translate, $rootScope) {
 	
 	  var isError = false;
 	  var messageColl = [];

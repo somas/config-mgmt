@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-	angular.module('portalApp').controller('NavigationCtrl', ['$scope', '$location', function($scope, $location) {
+	angular.module('configApp').controller('NavigationCtrl', ['$scope', '$location', function($scope, $location) {
 		 $scope.isActive = function (viewLocation) {
 			// if wildcard asterisk is used (to include any subfolders under the provided path)
 			if(viewLocation.slice(-2) === "/*") {

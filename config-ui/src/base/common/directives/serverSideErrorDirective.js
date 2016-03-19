@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-	angular.module('portalApp').directive('attFormErrors', ['$log', 'globalHandleErrorService', function ($log, globalHandleErrorService) {
+	angular.module('configApp').directive('attFormErrors', ['$log', 'globalHandleErrorService', function ($log, globalHandleErrorService) {
 	    return {
 	        restrict: "A",
 	        replace: false,
@@ -40,7 +40,7 @@
 	}]);
 	
 	
-	angular.module('portalApp').directive('attFieldErrors', ['$log', '$compile', function ($log, $compile) {
+	angular.module('configApp').directive('attFieldErrors', ['$log', '$compile', function ($log, $compile) {
 		
 		var errors = {
 		};

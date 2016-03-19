@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     
-	angular.module('portalApp').factory('globalHandleErrorService', ['$translate', '$log', function($translate, $log) {
+	angular.module('configApp').factory('globalHandleErrorService', ['$translate', '$log', function($translate, $log) {
 		  var formColl = [];
 	
 		  // Used to set server side errors

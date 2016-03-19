@@ -1,27 +1,20 @@
 (function() {
     'use strict';
 
-	var app = angular.module('portalApp',
+	var app = angular.module('configApp',
 			[ 'admin',
-			  'content',
-			  'blog',
 			  'security', 
 			  'pascalprecht.translate', 
 			  'ui.bootstrap',
 			  'templates-dist', 
 			  'ui.router' ]);
 	
-	app.config(function($translateProvider) {
-		$translateProvider.useUrlLoader('/developer/i18N');
-		$translateProvider.preferredLanguage('en');
-	});
-	
 	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 		$urlRouterProvider.otherwise('/');
 		
 		$stateProvider.state('home', {
 			url: '/',
-			templateUrl: 'base/app/content/content.tpl.html',
+			templateUrl: 'base/app/admin/admin-properties.tpl.html',
 		});
 	}]);
 	
