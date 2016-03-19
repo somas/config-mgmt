@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-	angular.module('configApp').directive('attFormErrors', ['$log', 'globalHandleErrorService', function ($log, globalHandleErrorService) {
+	angular.module('configApp').directive('stFormErrors', ['$log', 'globalHandleErrorService', function ($log, globalHandleErrorService) {
 	    return {
 	        restrict: "A",
 	        replace: false,
@@ -40,7 +40,7 @@
 	}]);
 	
 	
-	angular.module('configApp').directive('attFieldErrors', ['$log', '$compile', function ($log, $compile) {
+	angular.module('configApp').directive('stFieldErrors', ['$log', '$compile', function ($log, $compile) {
 		
 		var errors = {
 		};
@@ -53,7 +53,7 @@
 	    	scope: true,
 	        restrict: "A",
 	        replace: false,
-	        require: ['?ngModel', 'attFieldErrors', '^attFormErrors'],
+	        require: ['?ngModel', 'stFieldErrors', '^stFormErrors'],
 	        controller: ['$scope', function($scope) {
 	            $scope.errorMap = {};
 	            
@@ -72,10 +72,10 @@
 	          }],
 	        link: function(scope, element, attrs, ctrl) {
 	        	var ngModelCtrl = ctrl[0];
-	        	var attFieldErrorsCtrl = ctrl[1];
-	        	var attFormErrorsCtrl = ctrl[2];
+	        	var stFieldErrorsCtrl = ctrl[1];
+	        	var stFormErrorsCtrl = ctrl[2];
 	        	
-	        	attFormErrorsCtrl.addCtrl(attrs.name, attFieldErrorsCtrl);
+	        	stFormErrorsCtrl.addCtrl(attrs.name, stFieldErrorsCtrl);
 	
 	        	var el = getTemplate();
 	        	var compiled = $compile(el)(scope);
@@ -87,7 +87,7 @@
 	        	}
 	        	
 	        	var clearFormLevelErrors = function() {
-	        		attFormErrorsCtrl.clearFormLevelErrors();
+	        		stFormErrorsCtrl.clearFormLevelErrors();
 	        	};
 	        	
 	        	if(!ngModelCtrl) {
@@ -104,14 +104,14 @@
 	                		 $log.info('key: ' + key + ' value: ' + ngModelCtrl.$error[key]);
 	                		 var tempFieldKey = attrs.name + '.' + key;
 	                		 if(ngModelCtrl.$error[key]) {
-	                			 attFieldErrorsCtrl.addError(tempFieldKey, tempFieldKey);
+	                			 stFieldErrorsCtrl.addError(tempFieldKey, tempFieldKey);
 	                		 } else {
-	                			 attFieldErrorsCtrl.removeError(tempFieldKey);
+	                			 stFieldErrorsCtrl.removeError(tempFieldKey);
 	                		 }
 	                	 }
 	               	  	 $log.info('Data : ' +  ngModelCtrl.$viewValue +' ,ngModelCtrl error: ' + ngModelCtrl.$error);
 	                 } else if (ngModelCtrl.$valid) {
-	                  attFieldErrorsCtrl.clearErrors();	 
+	                  stFieldErrorsCtrl.clearErrors();
 	               	  $log.info('ngModelCtrl error: no errors');
 	                 }
 	             });

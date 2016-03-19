@@ -1,5 +1,5 @@
 <div class="container">
-				<form class="form-horizontal" role="form" name="adminForm" ng-controller="AdminCtrl" novalidate att-form-errors autocomplete="off">
+				<form class="form-horizontal" role="form" name="adminForm" ng-controller="AdminCtrl" novalidate st-form-errors autocomplete="off">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-5">
 								<h3>Global Properties</h3>
@@ -8,7 +8,7 @@
 						<div class="form-group">
 						    	<div class="col-sm-7 col-sm-offset-2">
 						    		<div class="has-error help-block">
-					        			<label name="top_lvl_errors" att-field-errors></label>
+					        			<label name="top_lvl_errors" st-field-errors></label>
 					        		</div>
 									<div class="has-success help-block" ng-show="adminProp.successMessage != null && adminForm.$pristine">
 										{{adminProp.successMessage}}
@@ -19,13 +19,13 @@
 						<div class="form-group" ng-class="{'has-error' : validateOnSubmit && adminForm.itemKey.$invalid}">
 							<label class="required col-sm-2 control-label" for="itemKey_label">Item Key</label>
 							 <div class="col-sm-5">
-								<input name="itemKey" type="text" ng-model="adminProp.itemKey" required att-field-errors tabindex="1" typeahead="itemKey for itemKey in searchIK($viewValue)" typeahead-loading="loadingLocations"  class="form-control"/><i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+								<input name="itemKey" type="text" ng-model="adminProp.itemKey" required st-field-errors tabindex="1" typeahead="itemKey for itemKey in searchIK($viewValue)" typeahead-loading="loadingLocations"  class="form-control"/><i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 							 </div>
 						</div>
 						<div class="form-group" ng-class="{'has-error' : validateOnSubmit && adminForm.fieldKey.$invalid}">
 							<label class="required col-sm-2 control-label" for="fieldKey_label">Field Key</label>
 							<div class="col-sm-5">
-								<input name="fieldKey" type="text" id="fieldKey_input_id" ng-model="adminProp.fieldKey" required att-field-errors tabindex="2" typeahead="itemKey for itemKey in searchFK($viewValue)" typeahead-loading="loadingLocations"  class="form-control"/><i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+								<input name="fieldKey" type="text" id="fieldKey_input_id" ng-model="adminProp.fieldKey" required st-field-errors tabindex="2" typeahead="itemKey for itemKey in searchFK($viewValue)" typeahead-loading="loadingLocations"  class="form-control"/><i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 							</div>	
 						</div>
 						<div class="form-group" ng-class="{'has-error' : validateOnSubmit && adminForm.description.$invalid}">
