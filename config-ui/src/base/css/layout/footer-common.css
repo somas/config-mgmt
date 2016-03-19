@@ -1,0 +1,140 @@
+#footer-common	{
+	border-top:1px solid #E9E9E9;
+}
+
+#footer-common ul { padding:0; list-style:none; }
+
+#att-footer {
+       padding: 55px 0;
+       position: relative;
+       margin: 0 auto;
+       width: 960px;
+}
+
+#att-footer .footer-top { padding-bottom: 40px; }
+#att-footer .footer-top:after, #att-footer .footer-bottom:after { clear: both; }
+#att-footer .logo { display: inline-block; margin-right: 35px;}
+
+#att-footer .social-media-links { padding-top: 14px; display: inline-block;vertical-align: top;}
+       #att-footer .social-media-links li {
+              border: 1px solid #e7e7e7;
+              border-radius: 3px 3px 3px 3px;
+              margin-right: 9px;
+              display: inline-block;
+       }
+              #att-footer .social-media-links li a {
+                     display: block;
+                     font-size: 78.5%;
+                     font-weight: bold;
+                     width: 95px;
+                     line-height: 1.82;
+                     padding: 5px;
+              }
+              #att-footer .social-media-links li .icon {
+                     color: #666666;
+                     background: url("/developer/resources/images/layout/social-icons.png") no-repeat scroll 0 0 transparent;
+                     width: 19px;
+                     display: inline-block;
+                     text-indent: 23px;
+              }
+              #att-footer .social-media-links li.facebook .icon { background-position: 0 0; }
+              #att-footer .social-media-links li.twitter .icon { background-position: -19px 0; }
+              #att-footer .social-media-links li.github .icon { background-position: -38px 0; }
+              #att-footer .social-media-links li:last-child { margin-right: 0; }
+              #att-footer .social-media-links li:hover {
+                     background-color: #f0f8ff;
+                     border-color: #c9e6ff;
+              }
+
+#att-footer #links, #att-footer #trademark-notes {
+       border-left: 1px solid #ececec;
+       display: inline-block;
+       padding-left: 30px;
+}
+       #att-footer #links { width: 383px; }
+              #att-footer #links p {
+                     font-size: 85.7%;
+                     line-height:1.34;
+              }
+              #att-footer #links p a { color: #666666; }
+              #att-footer #links nav a {
+                     font-size: 92.85%;
+                     line-height: .923;
+                     margin-right: 10px;
+              }
+              #att-footer #trademark-notes p {
+                     color: #666666;
+                     font-size: 85.7%;
+                     line-height: 1.5;
+                     margin: 0;
+              }
+
+#att-footer #sitemap { display: inline-block; }
+       #att-footer #sitemap section {
+              border-left: 1px solid #ececec;
+              padding: 0 30px 0 40px;
+              display:table-cell;
+       }
+              #att-footer #sitemap section.apis { width: 210px; border-left:none; }
+              #att-footer #sitemap section.resources { width: 246px; }
+              #att-footer #sitemap section.support { width: 181px; }
+              #att-footer #sitemap section header {
+                     font-family: clearviewatt_ltbold,'helvetica neue',helvetica,sans-serif;
+                     margin-bottom: 20px;
+                     font-size: 92.85%;
+                     text-transform: uppercase;
+                     padding-bottom: 0px;
+              }
+              #att-footer #sitemap section ul { margin: 0; }
+                     #att-footer #sitemap section ul li a {
+                           color: #666666;
+                           font-size: 85.7%;
+                           line-height: 1.75;
+                     }
+                     #att-footer #sitemap section ul li a:hover { color: #0574ac; }
+
+@media (max-width: 480px) {
+       #att-footer { width: 100%; float: left; }
+
+       #att-footer #sitemap { display: block; width: 100%; }
+              #att-footer #sitemap .apis {
+                     padding-left: 5%;
+                     padding-right: 2.5%;
+                     width: 25%;
+              }
+              #att-footer #sitemap .resources {
+                     padding-left: 2.5%;
+                     padding-right: 2.5%;
+                     width: 34%;
+              }
+              #att-footer #sitemap .support {
+                     padding-left: 2.5%;
+                     padding-right: 5%;
+                     width: 20%;
+              }
+              #att-footer #sitemap section header { margin:0; padding: 0 0 10px 0; }
+
+       #att-footer .social-media-links ul { margin-bottom: 30px; }
+              #att-footer .social-media-links ul li {
+                     width: 40%;
+                     margin-left: 10px;
+              }
+
+       #att-footer .footer-bottom { text-align: center;       }
+       #att-footer .logo, #att-footer #links {
+              margin: 0 auto 5px auto;
+              display: block;
+              border: none;
+              padding:0;
+       }
+       #att-footer #trademark-notes {
+              margin: 30px 0;
+              padding: 0;
+              border: none;
+       }
+
+       #att-footer #links { width: 100%; }
+	       #att-footer #links p { padding-top: 5px; }
+       
+       #att-footer #trademark-notes p { font-size: 50%; line-height: 2.6; }
+}

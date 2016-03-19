@@ -1,0 +1,398 @@
+#att-header {
+    padding: 0;
+    position: relative;
+	margin: 0 auto;
+	width:960px;
+}
+
+#header-common ul, #section_nav ul  { padding:0; list-style:none; }
+
+#att-header:before, #att-header:after {
+    content: "";
+    display: table;
+}
+#att-header:after {
+    clear: both;
+}
+#att-header .logo {
+    float: left;
+	padding: 17px 12px 17px 0px;
+}
+
+#att-header nav {
+    float: right;
+	display: inline-block;
+	position: relative;
+	padding: 18px 5px 10px;
+	font-size:13px;
+}
+#att-header nav a {
+    color: #666666;
+    font-weight: bold;
+    line-height: normal;
+    padding: 10px 12px;
+}
+#att-header nav a.button.blue { color: #ffffff; padding-left: 0px; padding-right: 0px; padding-top: 7px; padding-bottom: 7px; }
+#att-header nav a.button.small { min-width: 102px; }
+
+#att-header nav a:hover, #att-header nav a.active {
+    color: #0574ac;
+}
+
+#att-header a.login {
+    margin-left: 5px;
+    padding-left: 19px;
+}
+#att-header a.login:after {
+    background-position: 0 0;
+}
+#att-header a.login:hover:after {
+    background-position: 0 -6px !important;
+}
+#att-header a.login:first-child {
+    border-left: 1px solid #E2E2E2;
+}
+#att-header #quick-search {
+    box-shadow: 1px 0 0 #E2E2E2 inset;
+    height: 69px;
+    padding: 24px 0;
+	float: left;
+	margin-bottom: 0;
+}
+#att-header #quick-search:after {
+    border-left: 1px solid #E2E2E2;
+    bottom: -20px;
+    content: "";
+    height: 20px;
+    left: 0;
+    position: absolute;
+    width: 20px;
+}
+#att-header #quick-search.hide-border:after {
+    display: none;
+}
+#att-header #quick-search .magnifying-glass {
+    background: url("/developer/resources/images/layout/form-icons-sprite.png") no-repeat scroll left -368px transparent;
+    border: medium none !important;
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    margin: 0 0 0 15px;
+    vertical-align: middle;
+    width: 22px;
+}
+#att-header #quick-search input[type="text"], #att-header #quick-search input[type="text"]:focus {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    box-shadow: none;
+    display: inline;
+    margin: 0;
+    padding: 0px;
+    vertical-align: middle;
+    width: 130px;
+	font-size: 14px;
+}
+
+/* ------------- IE 8 or less ----------------------- */
+
+.ie #att-header .logo .att-logo {
+    margin: 3px 18px 0 0;
+	width: auto;
+}
+
+.ie a, a:visited {
+	text-decoration: none !important;
+}
+
+.ie #att-header {
+    white-space: nowrap;
+}
+/* ------------- Top navmenu panel ----------------------- */
+	#header-common div.menu.panel ul.menuDepth_2 { padding: 10px 12px; }
+
+/* ------------- Top navmenu dropdown ----------------------- */
+	#att-header nav.menuComponent .dropdown ul.menuDepth_1 {
+		vertical-align: top;
+	}	
+	#att-header nav.menuComponent .dropdown ul li a {
+		padding: 10px 12px;
+		line-height:normal;
+	}
+	#att-header nav.menuComponent .dropdown ul ul li a {
+		line-height:normal;
+		padding:0;
+		vertical-align: middle;
+		width: 85%;
+	}
+	#att-header nav.menuComponent .dropdown ul ul li a img {
+		vertical-align: middle;
+		margin-right: 5px;
+	}
+		
+	#att-header nav.menuComponent .dropdown ul li a.expands {
+		margin-right: 15px;
+		padding: 10px 12px;
+	}
+	
+	#att-header nav.menuComponent .dropdown ul li a.expands:after {
+		background: url("/developer/resources/images/layout/icon-plus.png") no-repeat scroll 0 0 transparent;
+		content: "";
+		height: 6px;
+		pointer-events: none;
+		position: absolute;
+		right: auto;
+		top: 16px;
+		width: 6px;
+		margin-left: 8px;
+	}
+	#att-header nav.menuComponent .dropdown ul li a.expands:hover:after {
+		background-position: 0 -6px;
+	}
+
+/* ------------- Top navmenu login dropdown ----------------------- */	
+	#att-header .login-nav {
+		display: inline-block;
+		height: 36px;
+	}
+	#att-header .login-nav ul ul {
+		display: none;
+	}
+
+	#att-header .login-nav ul li:hover > ul {
+		display: block;
+	}
+
+	#att-header .login-nav a {
+		line-height:normal;
+	}
+	
+	#att-header nav .login-nav a.button {
+		margin-top: 3px;
+	}
+
+	#att-header .login-nav ul {
+		list-style: none;
+		position: relative;
+		display: inline-table;
+	}
+		#att-header .login-nav ul:after {
+			content: ""; 
+			clear: both; 
+			display: block;
+		}
+
+		#att-header .login-nav ul li {
+			float: left;
+			line-height: normal;
+			margin: 0;
+			padding:0;
+		}
+			#att-header .login-nav ul li > a{
+				display: block;
+				text-decoration: none;
+				color: #666666;
+				font-weight: bold;
+				padding: 10px 12px;
+				line-height: normal;
+			}
+			#att-header .login-nav ul li:hover > a {
+				color: #0574ac;
+			}
+			
+			#att-header .login-nav ul li a.button {
+				display: block;
+				color: #FFFFFF;
+				padding: 6px 9px;
+				margin-bottom: 0px;
+				font-size: 13px;
+				width: auto;
+			}
+			
+		#att-header .login-nav ul ul {
+			border-radius: 0px;
+			padding: 0;
+			position: absolute;
+			top: 35px;
+			background: none repeat scroll 0 0 #FFFFFF;
+			border: 1px solid #D1D1D1;
+			border-radius: 3px 3px 3px 3px;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+			width: 200px;
+			z-index: 9999;
+		}
+		
+		
+			#att-header .login-nav ul ul:after, #att-header .login-nav ul ul:before {
+				border: medium solid transparent;
+				bottom: 100%;
+				content: " ";
+				height: 0;
+				pointer-events: none;
+				position: absolute;
+				width: 0;
+				}
+			#att-header .login-nav ul ul:before {
+				border-color: rgba(209, 209, 209, 0) rgba(209, 209, 209, 0) #D1D1D1;
+				border-width: 9px;
+				left: 15%;
+				margin-left: -9px;
+				}
+			#att-header .login-nav ul ul:after {
+				border-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) #FFFFFF;
+				border-width: 8px;
+				left: 15%;
+				margin-left: -8px;
+				}
+			#att-header .login-nav ul ul li {
+				float: none; 
+				position: relative;
+				border-bottom: 1px solid #E2E2E2;
+				margin: 0;
+				padding: 10px;
+				text-align: left;
+			}
+				#att-header .login-nav ul ul li a {
+					color: #666666;
+					display: inline-block;
+					font-size: 13px;
+					padding: 0;
+					text-align:left;
+					vertical-align: middle;
+				}
+					#att-header .login-nav ul ul li a:hover {
+						color: #0574ac;
+					}
+			
+		#att-header .login-nav ul ul ul {
+			position: absolute;
+			left: 100%;
+			top:0;
+			border-radius: 0px;
+			padding: 0;
+			background: none repeat scroll 0 0 #FFFFFF;
+			border: 1px solid #D1D1D1;
+			border-radius: 3px 3px 3px 3px;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+			
+		}
+			#att-header .login-nav ul ul ul:before {
+				border-color: transparent;
+				border-width: 0;
+				left: 0;
+				top: 0;
+				margin-left: 0;
+				}
+			#att-header .login-nav ul ul ul:after {
+				border-color: transparent;
+				border-width: 0;
+				left: 0;
+				top: 0;
+				margin-left: 0;
+				}
+		#att-header .login-nav ul {
+			position: relative;
+			left: 0;
+			top:0;
+			border-radius: 0px;
+			padding: 0;
+			background: none;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			
+		}
+		#att-header .login-nav ul li {
+			border:none;
+		}
+		
+		#att-header .login-nav ul li a.expands {
+			margin-right: 15px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 100px;
+			min-width: 35px;
+		}
+		#att-header .login-nav ul li a.expands:before {
+			background: url("/developer/resources/images/layout/icon-plus.png") no-repeat scroll 0 0 transparent;
+			content: ""; 
+			height: 6px; 
+			pointer-events: none; 
+			width: 6px; 
+			float: right; 
+			margin: 5px 0 0 5px; 
+		}
+		#att-header .login-nav ul li a.expands:hover:before {
+			background-position: 0 -6px;
+		}
+		
+/* responsive header styles start */
+
+	/* Xtra-Small Screen (screen-xs) */
+	@media (max-width: 480px) {
+		#content-area {
+			width: 100%;
+			min-height: 100%;
+			display: block;
+			left: auto;
+			margin: 0px;
+			border-left: none;
+			border-right: none;
+			box-shadow: none;
+		}
+		#section_content {
+			vertical-align: top;
+			display: inline-block;
+			top: 0px;
+			float: left;
+		}
+		#section_nav {
+			vertical-align: top;
+			min-height: 100%;
+			min-width: 240px;
+			display: none;
+			background: #f2f2f2;
+			border-right: 1px solid rgb(213, 213, 213);
+			float:left;
+		}
+		#section_nav.hidden { display:none !important; }
+		#section_nav .dropdown ul.menuDepth_1 > li {
+			width: 280px;
+			display: block;
+			float: none;
+			clear: both;
+			box-shadow: rgb(225, 225, 225) 0px 0px 10px;
+		}
+		
+		#section_nav div.menu.dropdown ul li {border-bottom: 0;}
+		#section_nav .dropdown ul ul li {display:table;}
+		#section_nav div.menu.dropdown ul ul ul {border-radius: 0 0 0 0;}
+		#section_nav .dropdown ul.menuDepth_1 > li {background: #fff; border-bottom: solid 1px #E2E2E2; position: relative; cursor: pointer;} 
+		#section_nav .dropdown ul.menuDepth_1 > li > a {font-size: 20px;}
+		#section_nav .dropdown ul.menuDepth_2 {
+			position: static;
+			display: none;
+		}
+		#section_nav .dropdown ul.menuDepth_3 {position: static; border-left: 0; border: 0;}
+		#section_nav .dropdown ul.menuDepth_2.expanded {display: block;}
+		#section_nav .dropdown ul.menuDepth_2  > li { height: 50px; padding-left: 20px; font-size: 18px;}
+		#section_nav .dropdown ul.menuDepth_3  > li { padding-left: 20px;}
+		#section_nav .dropdown ul.menuDepth_2  > li > a, #section_nav .dropdown ul.menuDepth_2  > li > span  {font-size: 18px; font-weight: 200;}
+		#section_nav .dropdown ul.menuDepth_2  > li > a > img { display: none;}
+		#section_nav .dropdown ul li .menuDepth_2 .menuDepth_3, #section_nav .dropdown ul li .menuDepth_3 .menuDepth_4 {display: none;}
+		#section_nav .dropdown ul li.mega-menu .menuDepth_2 .menuDepth_3 {display: block}
+		#section_nav .menu.dropdown ul li ul.menuDepth_2, 
+		#section_nav .menu.dropdown ul ul {width: 100%; box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);border:none;}
+		#section_nav .menu.dropdown ul li::before{content:''; background: none; display: none;}
+		#section_nav .dropdown ul li a.expands:after, div.menu.dropdown ul ul:before {display: none;}
+		#section_nav .dropdown ul.menuDepth_2::after{display: none;}
+		#section_nav .dropdown ul li.mega-menu .menuDepth_2 span {color: #0574ac;}	
+		#section_nav .plus_minus {position: absolute; top:5px; left: 240px; font-size:30px; text-align: center; display: inline-block; width:30px;}
+		#header-mobile { float: left; width: 100%; }
+		#header-mobile #header-mobile-container { padding: 25px 10px; float: left; width: 100%; min-width: 305px; }
+		#header-mobile #header-mobile-container a#mobile-menu {float: left; padding-top:8px;}
+		#header-mobile #header-mobile-container a.logo {float: right;}
+		#section_content {position:static;}
+	}
+
+/* responsive header styles end */
