@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +26,12 @@ public class LoginController {
 
         if(postAuth.isAuthenticated()) {
             Map<String, String> response = new HashMap<>();
-            String token = "Basic " + new String(Base64.getEncoder().encode((username + ":" + password).getBytes()));
+            String token = "Basic " + new String(Base64.encode((username + ":" + password).getBytes()));
             response.put("token", token);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
     }
-
 
 }

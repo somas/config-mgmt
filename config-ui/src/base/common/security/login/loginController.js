@@ -11,10 +11,10 @@
 				  
 				  loginService.login($.param({username: sc.login.username, password: sc.login.password})).$promise.then(
 						  function(success) {
-							  $sessionStorage.accessToken = success.access_token;
+							  $sessionStorage.accessToken = success.token;
 							  principal.set(success.principal);
 							  $location.path($sessionStorage.destUrl);
-							  console.log('success in attempted login :' + success.access_token);
+							  console.log('success in attempted login :' + success.token);
 						  }, 
 						  function(error) {
 							  handleError({error: error.data.errors, formName: 'loginForm'});
