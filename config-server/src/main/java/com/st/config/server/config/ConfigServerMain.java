@@ -74,6 +74,7 @@ public class ConfigServerMain {
 @Configuration
 class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     UsersRepository usersRepository;
 
@@ -129,7 +130,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().fullyAuthenticated().and().
+        http.authorizeRequests().antMatchers("/login/**").permitAll().and()
+                .authorizeRequests()
+                .anyRequest().fullyAuthenticated().and().
                 httpBasic().and().
                 csrf().disable();
     }

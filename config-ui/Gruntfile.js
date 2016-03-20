@@ -114,6 +114,6 @@
 		grunt.registerTask('debug', [ 'clean:build', 'bower', 'html2js:dist', 'concat:dist', 'copy', 'clean:temp' ]);
 		
 		// Part of gradle tasks - Splitting to be part of appropriate gradle java build lifecycle
-		grunt.registerTask('build', [ 'clean:build', 'bower', 'jshint']);
+		grunt.registerTask('build', [ 'clean:build', 'bower', 'jshint', 'html2js:dist', 'concat:dist', 'uglify:dist', 'copy', 'clean:temp' ]);
 		grunt.registerTask('war', [ 'clean:build', 'bower', 'html2js:dist', 'concat:dist', 'uglify:dist', 'copy', 'clean:temp' ]);
     };

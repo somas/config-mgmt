@@ -9,10 +9,9 @@
 					  return;
 				  }
 				  
-				  loginService.login($.param({username: sc.login.username, password: sc.login.password, grant_type: 'password', scope: 'read write trust'})).$promise.then(
+				  loginService.login($.param({username: sc.login.username, password: sc.login.password})).$promise.then(
 						  function(success) {
 							  $sessionStorage.accessToken = success.access_token;
-							  $sessionStorage.refreshToken = success.refresh_token;
 							  principal.set(success.principal);
 							  $location.path($sessionStorage.destUrl);
 							  console.log('success in attempted login :' + success.access_token);

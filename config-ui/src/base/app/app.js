@@ -13,8 +13,8 @@
 		$urlRouterProvider.otherwise('/');
 		
 		$stateProvider.state('home', {
-			url: '/',
-			templateUrl: 'base/app/admin/admin-properties.tpl.html',
+			url: '/'
+			//templateUrl: 'base/app/admin/admin-properties.tpl.html',
 		});
 	}]);
 	
