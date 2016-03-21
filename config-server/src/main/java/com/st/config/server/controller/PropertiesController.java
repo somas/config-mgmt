@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/properties")
@@ -31,8 +33,13 @@ public class PropertiesController {
     }
 
     @RequestMapping(value = "/{itemKey}/{fieldKey}/versions", method = RequestMethod.GET)
-    public List<Integer> getVersionsByItemKeyAndFieldKey(@PathVariable String itemKey, @PathVariable String fieldKey) {
-        return propertiesService.getVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
+    public Map<String, List<Integer>> getVersionsByItemKeyAndFieldKey(@PathVariable String itemKey, @PathVariable String fieldKey) {
+        List<Integer> versionColl = propertiesService.getVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
+        Map<String, List<Integer>> versionMap = new HashMap<>();
+        versionMap.put("versions", versionColl);
+        return versionMap;
+
+
     }
 
     @RequestMapping(method= RequestMethod.POST)
