@@ -32,7 +32,7 @@ public class PropertiesServiceImpl implements PropertiesService {
     }
 
     public List<Integer> getVersionsByItemKeyAndFieldKey(String itemKey, String fieldKey) {
-        return propertiesRepository.findVersionsByItemKeyAndFieldKey(itemKey, fieldKey);
+        return propertiesRepository.findVersionByItemKeyAndFieldKeyOrderByVersionDesc(itemKey, fieldKey);
     }
 
     public Properties createProperty(Properties property, String principalName) {

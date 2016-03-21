@@ -11,6 +11,6 @@ public interface PropertiesRepository extends JpaRepository<Properties, String> 
     Properties findTopByItemKeyAndFieldKeyOrderByVersionDesc(String itemKey, String fieldKey);
     Properties findByItemKeyAndFieldKeyAndVersion(String itemKey, String fieldKey, int version);
 
-    @Query(value = "SELECT p.version FROM Properties p WHERE p.itemKey = :itemKey and p.fieldKey = :fieldKey")
-    List<Integer> findVersionsByItemKeyAndFieldKey(@Param("itemKey") String itemKey, @Param("fieldKey") String fieldKey);
+    @Query(value = "SELECT p.version FROM Properties p WHERE p.itemKey = :itemKey and p.fieldKey = :fieldKey order by p.version desc")
+    List<Integer> findVersionByItemKeyAndFieldKeyOrderByVersionDesc(@Param("itemKey") String itemKey, @Param("fieldKey") String fieldKey);
 }
