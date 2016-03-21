@@ -30,6 +30,7 @@ dependencies {
     compile "org.apache.activemq:activemq-broker"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4"
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    compile("org.springframework.boot:spring-boot-devtools")
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
@@ -43,3 +44,5 @@ task buildDocker(type: Docker, dependsOn: build) {
         }
     }
 }
+
+build.dependsOn ':config-ui:grunt_build'
