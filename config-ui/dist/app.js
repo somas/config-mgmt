@@ -90,10 +90,33 @@
                     delete scope.propertyJson[key];
                 };
 
+                scope.jsonTable.change = function(id) {
+                    var key = $("#key_" + id).val();
+                    var value = $("#value_" + id).val();
+
+                    if(key !== '') {
+                        scope.propertyJson[key] = value;
+                        scope.data = angular.toJson(scope.propertyJson);
+                    }
+                };
+
                 $("#add").click(function() {
-                    $('#jsonTable tbody>tr:nth-last-child(2)').clone(true).insertAfter('#jsonTable tbody>tr:nth-last-child(2)');
-                    $('#jsonTable tbody>tr:nth-last-child(2) #key').val('');
-                    $('#jsonTable tbody>tr:nth-last-child(2) #value').val('');
+
+                    var newRow = ('<tr><td><input id="key_PRONTO" type="text" name="key" ng-model="key"></td><td><input id="value_PRONTO" type="text" name="value" ng-model="val" ng-change="jsonTable.change(PRONTO)"/></td><td><button ng-click="jsonTable.delete(PRONTO)">-</button></td></tr>');
+                    var id = $('#jsonTable tbody>tr').size();
+                    var res = newRow.replace(/PRONTO/g, id);
+                    if($('#jsonTable tbody>tr:nth-last-child(2)').size() > 0) {
+                        $(res).insertAfter('#jsonTable tbody>tr:nth-last-child(2)');
+                    } else {
+                        $(res).insertBefore('#jsonTable tbody>tr:nth-last-child(1)');
+                    }
+
+                    $( "#value_" + id).change(function() {
+                        scope.jsonTable.change(id);
+                    });
+                    //$('#jsonTable tbody>tr:nth-last-child(2)').clone(true).insertAfter('#jsonTable tbody>tr:nth-last-child(2)');
+                    //$('#jsonTable tbody>tr:nth-last-child(2) #key').val('');
+                    //$('#jsonTable tbody>tr:nth-last-child(2) #value').val('');
                     return false;
                 });
 	        }
@@ -718,11 +741,9 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "						<div class=\"form-group\">\n" +
     "							<div class=\"col-sm-offset-2 col-sm-10\">\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; refresh(adminForm)\" class=\"btn btn-primary\">Refresh</button>\n" +
-    "								<!--\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; create(adminForm)\" class=\"btn btn-primary\">Create</button>\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; update(adminForm)\" class=\"btn btn-primary\">Update</button>\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; delete(adminForm)\" class=\"btn btn-primary\">Delete</button>\n" +
-    "								-->\n" +
     "							</div>\n" +
     "						</div>\n" +
     "						<br>\n" +
@@ -750,13 +771,12 @@ angular.module("base/common/directives/json-table.tpl.html", []).run(["$template
     "            <th>Key</th>\n" +
     "            <th>Value</th>\n" +
     "            <th></th>\n" +
-    "            <th></th>\n" +
     "        </tr>\n" +
     "        </thead>\n" +
     "        <tbody>\n" +
     "        <tr ng-repeat=\"(key, val) in propertyJson\">\n" +
-    "            <td><input id=\"key\" type=\"text\" name=\"key\" ng-model=\"key\"></td>\n" +
-    "            <td><input id=\"value\" type=\"text\" name=\"value\" ng-model=\"val\"/></td>\n" +
+    "            <td><input id=\"key_{{index}}\" type=\"text\" name=\"key\" ng-model=\"key\"></td>\n" +
+    "            <td><input id=\"value_{{index}}\" type=\"text\" name=\"value\" ng-model=\"val\" ng-change=\"jsonTable.change($index)\"/></td>\n" +
     "            <td>\n" +
     "                <button ng-click=\"jsonTable.delete(key)\">-</button>\n" +
     "            </td>\n" +
