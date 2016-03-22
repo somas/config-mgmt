@@ -708,14 +708,12 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "						</div>\n" +
     "						<div class=\"form-group\" ng-class=\"{'has-error' : validateOnSubmit && adminForm.description.$invalid}\">\n" +
     "							<label class=\"required col-sm-2 control-label\" for=\"description_label\">Description</label>\n" +
-    "							<div class=\"col-sm-7\">\n" +
-    "								<json-table name=\"description\" id=\"description_textArea_id\" ng-model=\"adminProp.description\" tabindex=\"3\" rows=\"18\" class=\"form-control\"></json-table>\n" +
+    "								<json-table name=\"description\" id=\"description_textArea_id\" ng-model=\"adminProp.description\"></json-table>\n" +
     "								<br>\n" +
     "								<br>\n" +
     "								<br>\n" +
     "								<br>\n" +
     "								<br>\n" +
-    "							</div>\n" +
     "						</div>\n" +
     "						<div class=\"form-group\">\n" +
     "							<div class=\"col-sm-offset-2 col-sm-10\">\n" +
@@ -745,7 +743,7 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
 angular.module("base/common/directives/json-table.tpl.html", []).run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("base/common/directives/json-table.tpl.html",
-    "<div>\n" +
+    "<div class=\"col-sm-7\">\n" +
     "    <table id=\"jsonTable\" class=\"table table-striped\">\n" +
     "        <thead>\n" +
     "        <tr>\n" +
