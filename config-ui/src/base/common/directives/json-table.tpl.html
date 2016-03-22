@@ -1,0 +1,24 @@
+<div>
+    <table id="jsonTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key, val) in propertyJson">
+            <td><input id="key" type="text" name="key" ng-model="key"></td>
+            <td><input id="value" type="text" name="value" ng-model="val"/></td>
+            <td>
+                <button ng-click="jsonTable.delete(key)">-</button>
+            </td>
+        </tr>
+        <tr>
+            <td><button id="add">+</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

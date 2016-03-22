@@ -60,27 +60,42 @@
 	angular.module('configApp').directive('jsonTable', ['$log', 'globalHandleErrorService', function ($log, globalHandleErrorService) {
 	    return {
 	        restrict: "E",
-	        replace: false,
+	        replace: true,
 			scope: {
 				data: '=ngModel'
 			},
-            template: '<li ng-repeat="(key, val) in propertyJson">{{key}}: {{val}}</li>',
+            templateUrl: 'base/common/directives/json-table.tpl.html',
 	        link: function(scope, element, attr, ctrl) {
+                scope.jsonTable = {};
                 scope.$watch('data', function(newValue, oldValue) {
                     if (newValue)
-                        console.log("I see a data change!");
                     console.log(scope.data);
                     if(scope.data != "empty" && scope.data !== "") {
                         var temp = JSON.parse(scope.data);
-                        console.log("--------temp---------");
-                        console.log(temp);
                         if (temp) {
                             scope.propertyJson = temp;
+                        } else {
+                            scope.propertyJson = {};
                         }
                         console.log(scope.propertyJson);
                     }
                     console.log("end---------");
                 }, true);
+
+                scope.jsonTable.add = function(key, value) {
+                    scope.propertyJson[key] = value;
+                };
+
+                scope.jsonTable.delete = function(key) {
+                    delete propertyJson[key];
+                };
+
+                $("#add").click(function() {
+                    $('#jsonTable tbody>tr:nth-last-child(2)').clone(true).insertAfter('#jsonTable tbody>tr:nth-last-child(2)');
+                    $('#jsonTable tbody>tr:nth-last-child(2) #key').val('');
+                    $('#jsonTable tbody>tr:nth-last-child(2) #value').val('');
+                    return false;
+                });
 	        }
 	    };
 	}]);
@@ -656,7 +671,7 @@ angular.module('configApp').factory('flashMessageService', ['$translate', '$root
 		return $resource('/properties/:item_key/:field_key/versions', {}, {
 	    });
 	}]);
-})();;angular.module('templates-dist', ['base/app/admin/admin-properties.tpl.html', 'base/common/security/login/login.tpl.html']);
+})();;angular.module('templates-dist', ['base/app/admin/admin-properties.tpl.html', 'base/common/directives/json-table.tpl.html', 'base/common/security/login/login.tpl.html']);
 
 angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCache", function($templateCache) {
   "use strict";
@@ -695,14 +710,21 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "							<label class=\"required col-sm-2 control-label\" for=\"description_label\">Description</label>\n" +
     "							<div class=\"col-sm-7\">\n" +
     "								<json-table name=\"description\" id=\"description_textArea_id\" ng-model=\"adminProp.description\" tabindex=\"3\" rows=\"18\" class=\"form-control\"></json-table>\n" +
+    "								<br>\n" +
+    "								<br>\n" +
+    "								<br>\n" +
+    "								<br>\n" +
+    "								<br>\n" +
     "							</div>\n" +
     "						</div>\n" +
     "						<div class=\"form-group\">\n" +
     "							<div class=\"col-sm-offset-2 col-sm-10\">\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; refresh(adminForm)\" class=\"btn btn-primary\">Refresh</button>\n" +
+    "								<!--\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; create(adminForm)\" class=\"btn btn-primary\">Create</button>\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; update(adminForm)\" class=\"btn btn-primary\">Update</button>\n" +
     "								<button data-ng-click=\"validateOnSubmit=true; delete(adminForm)\" class=\"btn btn-primary\">Delete</button>\n" +
+    "								-->\n" +
     "							</div>\n" +
     "						</div>\n" +
     "						<br>\n" +
@@ -718,6 +740,35 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "				</form>\n" +
     "</div>\n" +
     "");
+}]);
+
+angular.module("base/common/directives/json-table.tpl.html", []).run(["$templateCache", function($templateCache) {
+  "use strict";
+  $templateCache.put("base/common/directives/json-table.tpl.html",
+    "<div>\n" +
+    "    <table id=\"jsonTable\" class=\"table table-striped\">\n" +
+    "        <thead>\n" +
+    "        <tr>\n" +
+    "            <th>Key</th>\n" +
+    "            <th>Value</th>\n" +
+    "            <th></th>\n" +
+    "            <th></th>\n" +
+    "        </tr>\n" +
+    "        </thead>\n" +
+    "        <tbody>\n" +
+    "        <tr ng-repeat=\"(key, val) in propertyJson\">\n" +
+    "            <td><input id=\"key\" type=\"text\" name=\"key\" ng-model=\"key\"></td>\n" +
+    "            <td><input id=\"value\" type=\"text\" name=\"value\" ng-model=\"val\"/></td>\n" +
+    "            <td>\n" +
+    "                <button ng-click=\"jsonTable.delete(key)\">-</button>\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td><button id=\"add\">+</button></td>\n" +
+    "        </tr>\n" +
+    "        </tbody>\n" +
+    "    </table>\n" +
+    "</div>");
 }]);
 
 angular.module("base/common/security/login/login.tpl.html", []).run(["$templateCache", function($templateCache) {
