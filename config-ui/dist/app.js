@@ -87,7 +87,7 @@
                 };
 
                 scope.jsonTable.delete = function(key) {
-                    delete propertyJson[key];
+                    delete scope.propertyJson[key];
                 };
 
                 $("#add").click(function() {
