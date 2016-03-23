@@ -13,7 +13,6 @@
 						  function(success) {
 							  $sessionStorage.accessToken = success.token;
 							  principal.set(success.principal);
-							  principal.setAuthenticated(true);
 							  $location.path($sessionStorage.destUrl);
 							  console.log('success in attempted login :' + success.token);
 						  }, 

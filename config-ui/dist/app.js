@@ -1,43 +1,37 @@
-(function() {
+(function () {
     'use strict';
 
-	var app = angular.module('configApp',
-			[ 'admin',
-			  'security', 
-			  'pascalprecht.translate', 
-			  'ui.bootstrap',
-			  'templates-dist', 
-			  'ui.router' ]);
-	
-	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
-		$urlRouterProvider.otherwise('/');
-		
-		$stateProvider.state('home', {
-			url: '/'
-			//templateUrl: 'base/app/admin/admin-properties.tpl.html',
-		});
-	}]);
-	
-	app.run(['$rootScope', '$stateParams', 'principal', '$sessionStorage', '$state', '$location', function($rootScope, $stateParams, principal, $sessionStorage, $state, $location) {
-		$rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
-			
-			if(toState.authRequired && !principal.isAuthenticated()) {
-				if (angular.isUndefined($sessionStorage.accessToken)) {
-					event.preventDefault();
-					$sessionStorage.destUrl = $location.path();
-					$state.go('login');
-				} else {
-					event.preventDefault();
-					console.log('error - permission denied');
-					$state.go('error');
-				}
-			}
-		});
-	}]);
-	
-	angular.isUndefinedOrNull = function(val) {
-	    return angular.isUndefined(val) || val === null ;
-	};
+    var app = angular.module('configApp',
+        ['admin',
+            'security',
+            'pascalprecht.translate',
+            'ui.bootstrap',
+            'templates-dist',
+            'ui.router']);
+
+    app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+        $urlRouterProvider.otherwise('/');
+
+        $stateProvider.state('home', {
+            url: '/'
+            //templateUrl: 'base/app/admin/admin-properties.tpl.html',
+        });
+    }]);
+
+    app.run(['$rootScope', '$stateParams', 'principal', '$sessionStorage', '$state', '$location', function ($rootScope, $stateParams, principal, $sessionStorage, $state, $location) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+
+            if (toState.authRequired && angular.isUndefined($sessionStorage.accessToken)) {
+                event.preventDefault();
+                $sessionStorage.destUrl = $location.path();
+                $state.go('login');
+            }
+        });
+    }]);
+
+    angular.isUndefinedOrNull = function (val) {
+        return angular.isUndefined(val) || val === null;
+    };
 
 })();;(function() {
     'use strict';
@@ -264,7 +258,6 @@
 						  function(success) {
 							  $sessionStorage.accessToken = success.token;
 							  principal.set(success.principal);
-							  principal.setAuthenticated(true);
 							  $location.path($sessionStorage.destUrl);
 							  console.log('success in attempted login :' + success.token);
 						  }, 
@@ -357,9 +350,6 @@
 				this.authenticated = true;
 				this.principal = principal;
 				this.fetch();
-			},
-			setAuthenticated: function(auth) {
-				this.authenticated = auth;
 			},
 			isAuthenticated: function() {
 				return this.authenticated;
@@ -694,7 +684,7 @@ angular.module('configApp').factory('flashMessageService', ['$translate', '$root
 ;(function() {
     'use strict';
 	angular.module('admin').factory('adminService', ['$resource', function($resource, $scope) {
-			return $resource('/properties/:item_key/:field_key', {}, {
+			return $resource('/properties/:item_key/:field_key/:version', {}, {
 				update: {method: 'PUT'}
 		    });
 	  }]);
@@ -741,11 +731,6 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "						<div class=\"form-group\" ng-class=\"{'has-error' : validateOnSubmit && adminForm.description.$invalid}\">\n" +
     "							<label class=\"required col-sm-2 control-label\" for=\"description_label\">Description</label>\n" +
     "								<json-table name=\"description\" id=\"description_textArea_id\" ng-model=\"adminProp.description\"></json-table>\n" +
-    "								<br>\n" +
-    "								<br>\n" +
-    "								<br>\n" +
-    "								<br>\n" +
-    "								<br>\n" +
     "						</div>\n" +
     "						<div class=\"form-group\">\n" +
     "							<div class=\"col-sm-offset-2 col-sm-10\">\n" +
@@ -759,7 +744,9 @@ angular.module("base/app/admin/admin-properties.tpl.html", []).run(["$templateCa
     "						\n" +
     "						<div class=\"form-group\">\n" +
     "							<label class=\"col-sm-2 control-label\">Diff version: </label>\n" +
-    "							<select class=\"col-sm-1\" ng-model=\"fromVersion\" ng-options=\"version as version for version in versions\"></select><label class=\"col-sm-1 control-label\">against:</label><select class=\"col-sm-1\" ng-model=\"withVersion\" ng-options=\"version as version for version in versions\" ng-change=\"diff()\"></select>\n" +
+    "							<select class=\"col-sm-1\" ng-model=\"fromVersion\" ng-options=\"version as version for version in versions\"></select>\n" +
+    "							<label class=\"col-sm-1 control-label\">against:</label>\n" +
+    "							<select class=\"col-sm-1\" ng-model=\"withVersion\" ng-options=\"version as version for version in versions\" ng-change=\"diff()\"></select>\n" +
     "						</div>\n" +
     "						<div class=\"form-group\">\n" +
     "							<label class=\"col-sm-2 control-label\">Response:</label>\n" +

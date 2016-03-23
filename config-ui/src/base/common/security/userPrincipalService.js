@@ -20,9 +20,6 @@
 				this.principal = principal;
 				this.fetch();
 			},
-			setAuthenticated: function(auth) {
-				this.authenticated = auth;
-			},
 			isAuthenticated: function() {
 				return this.authenticated;
 			},

@@ -31,11 +31,6 @@
 						<div class="form-group" ng-class="{'has-error' : validateOnSubmit && adminForm.description.$invalid}">
 							<label class="required col-sm-2 control-label" for="description_label">Description</label>
 								<json-table name="description" id="description_textArea_id" ng-model="adminProp.description"></json-table>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
@@ -49,7 +44,9 @@
 						
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Diff version: </label>
-							<select class="col-sm-1" ng-model="fromVersion" ng-options="version as version for version in versions"></select><label class="col-sm-1 control-label">against:</label><select class="col-sm-1" ng-model="withVersion" ng-options="version as version for version in versions" ng-change="diff()"></select>
+							<select class="col-sm-1" ng-model="fromVersion" ng-options="version as version for version in versions"></select>
+							<label class="col-sm-1 control-label">against:</label>
+							<select class="col-sm-1" ng-model="withVersion" ng-options="version as version for version in versions" ng-change="diff()"></select>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Response:</label>
