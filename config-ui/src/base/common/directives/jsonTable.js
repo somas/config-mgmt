@@ -43,11 +43,13 @@
                             scope.data = angular.toJson(scope.propertyJson);
                         });
                     }
+
+                    $("#row_" + id).remove();
                 };
 
                 $("#add").click(function() {
 
-                    var newRow = ('<tr><td><input id="key_PRONTO" type="text" name="key" ng-model="key"></td><td><input id="value_PRONTO" type="text" name="value" ng-model="val" ng-change="jsonTable.change(PRONTO)"/></td><td><button ng-click="jsonTable.delete(PRONTO)">-</button></td></tr>');
+                    var newRow = ('<tr id="row_PRONTO"><td><input id="key_PRONTO" type="text" name="key" ng-model="key"></td><td><input id="value_PRONTO" type="text" name="value" ng-model="val" ng-change="jsonTable.change(PRONTO)"/></td><td><button ng-click="jsonTable.delete(PRONTO)">-</button></td></tr>');
                     var id = $('#jsonTable tbody>tr').size();
                     var res = newRow.replace(/PRONTO/g, id);
                     if($('#jsonTable tbody>tr:nth-last-child(2)').size() > 0) {
