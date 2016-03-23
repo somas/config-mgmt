@@ -13,4 +13,11 @@ public interface PropertiesRepository extends JpaRepository<Properties, String> 
 
     @Query(value = "SELECT p.version FROM Properties p WHERE p.itemKey = :itemKey and p.fieldKey = :fieldKey order by p.version desc")
     List<Integer> findVersionByItemKeyAndFieldKeyOrderByVersionDesc(@Param("itemKey") String itemKey, @Param("fieldKey") String fieldKey);
+
+    @Query(value = "SELECT DISTINCT p.itemKey FROM Properties p WHERE p.itemKey LIKE CONCAT(:itemKey, '%')")
+    List<String> findItemKeys(@Param("itemKey") String itemKey);
+
+    @Query(value = "SELECT DISTINCT p.fieldKey FROM Properties p WHERE p.itemKey = :itemKey and p.fieldKey LIKE CONCAT(:fieldKey, '%')")
+    List<String> findFieldKeyForItemKeys(@Param("itemKey") String itemKey, @Param("fieldKey") String fieldKey);
+
 }

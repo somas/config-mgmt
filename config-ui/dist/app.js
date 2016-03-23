@@ -88,10 +88,7 @@
 
                 scope.jsonTable.delete = function(key) {
                     delete scope.propertyJson[key];
-
-                    scope.$apply(function () {
-                        scope.data = angular.toJson(scope.propertyJson);
-                    });
+                    scope.data = angular.toJson(scope.propertyJson);
                 };
 
                 scope.jsonTable.change = function(id) {
@@ -613,14 +610,14 @@ angular.module('configApp').factory('flashMessageService', ['$translate', '$root
 	  };
 	  
 	  sc.searchIK = function(itemKey) {
-		  return $http.get('/developer/admin/search/' + itemKey)
+		  return $http.get('/properties/search/' + itemKey)
 		  		 .then(function(res) {
 		  			 return res.data;
 		  		 });
 	  };
 	  
 	  sc.searchFK = function(fieldKey) {
-		  return $http.get('/developer/admin/search/' + sc.adminProp.itemKey + '/' + fieldKey)
+		  return $http.get('/properties/search/' + sc.adminProp.itemKey + '/' + fieldKey)
 		  		 .then(function(res) {
 		  			 return res.data;
 		  		 });

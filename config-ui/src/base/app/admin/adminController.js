@@ -88,14 +88,14 @@
 	  };
 	  
 	  sc.searchIK = function(itemKey) {
-		  return $http.get('/developer/admin/search/' + itemKey)
+		  return $http.get('/properties/search/' + itemKey)
 		  		 .then(function(res) {
 		  			 return res.data;
 		  		 });
 	  };
 	  
 	  sc.searchFK = function(fieldKey) {
-		  return $http.get('/developer/admin/search/' + sc.adminProp.itemKey + '/' + fieldKey)
+		  return $http.get('/properties/search/' + sc.adminProp.itemKey + '/' + fieldKey)
 		  		 .then(function(res) {
 		  			 return res.data;
 		  		 });

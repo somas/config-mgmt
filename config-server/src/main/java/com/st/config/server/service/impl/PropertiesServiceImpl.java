@@ -59,4 +59,12 @@ public class PropertiesServiceImpl implements PropertiesService {
         auditLog.setUserId(principalName);
         return auditLog;
     }
+
+    public List<String> findItemKeys(String itemKey){
+        return propertiesRepository.findItemKeys(itemKey);
+    }
+
+    public List<String> findFieldKeysForItemKeys(String itemKey, String fieldKey){
+        return propertiesRepository.findFieldKeyForItemKeys(itemKey, fieldKey);
+    }
 }

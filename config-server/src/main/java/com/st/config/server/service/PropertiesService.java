@@ -19,4 +19,8 @@ public interface PropertiesService {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     Properties updateProperty(Properties property, String principalName);
+
+    List<String> findItemKeys(String itemKey);
+
+    List<String> findFieldKeysForItemKeys(String itemKey, String fieldKey);
 }

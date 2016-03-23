@@ -38,8 +38,6 @@ public class PropertiesController {
         Map<String, List<Integer>> versionMap = new HashMap<>();
         versionMap.put("versions", versionColl);
         return versionMap;
-
-
     }
 
     @RequestMapping(method= RequestMethod.POST)
@@ -50,6 +48,16 @@ public class PropertiesController {
     @RequestMapping(method= RequestMethod.PUT)
     public Properties updateProperty(@RequestBody Properties properties, Principal principal) {
         return propertiesService.updateProperty(properties, principal.getName());
+    }
+
+    @RequestMapping(value = "/search/{itemKey}",method= RequestMethod.GET)
+    public List<String> getIk(@PathVariable String itemKey) {
+        return propertiesService.findItemKeys(itemKey);
+    }
+
+    @RequestMapping(value = "/search/{itemKey}/{fieldKey}",method= RequestMethod.GET)
+    public List<String> getFk(@PathVariable String itemKey,@PathVariable String fieldKey) {
+        return propertiesService.findFieldKeysForItemKeys(itemKey, fieldKey);
     }
 
 }
