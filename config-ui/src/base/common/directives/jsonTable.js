@@ -31,6 +31,10 @@
 
                 scope.jsonTable.delete = function(key) {
                     delete scope.propertyJson[key];
+
+                    scope.$apply(function () {
+                        scope.data = angular.toJson(scope.propertyJson);
+                    });
                 };
 
                 scope.jsonTable.change = function(id) {
