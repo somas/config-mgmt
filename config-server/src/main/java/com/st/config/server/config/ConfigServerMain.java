@@ -130,12 +130,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login/**").permitAll()
-                .antMatchers("/index.html").permitAll()
+        http.authorizeRequests().antMatchers("/*#/login").permitAll()
+                .antMatchers("/index.html*/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/script/**").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/*#/admin").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().fullyAuthenticated()
                 .and()

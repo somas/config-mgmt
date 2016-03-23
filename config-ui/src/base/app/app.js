@@ -21,8 +21,7 @@
 	app.run(['$rootScope', '$stateParams', 'principal', '$sessionStorage', '$state', '$location', function($rootScope, $stateParams, principal, $sessionStorage, $state, $location) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
 			
-			var isAllowed = principal.isAuthorized(toState.permissions);
-			if(!isAllowed) {
+			if(toState.authRequired && !principal.isAuthenticated()) {
 				if (angular.isUndefined($sessionStorage.accessToken)) {
 					event.preventDefault();
 					$sessionStorage.destUrl = $location.path();

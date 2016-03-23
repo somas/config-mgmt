@@ -21,8 +21,7 @@
 	app.run(['$rootScope', '$stateParams', 'principal', '$sessionStorage', '$state', '$location', function($rootScope, $stateParams, principal, $sessionStorage, $state, $location) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
 			
-			var isAllowed = principal.isAuthorized(toState.permissions);
-			if(!isAllowed) {
+			if(toState.authRequired && !principal.isAuthenticated()) {
 				if (angular.isUndefined($sessionStorage.accessToken)) {
 					event.preventDefault();
 					$sessionStorage.destUrl = $location.path();
@@ -265,6 +264,7 @@
 						  function(success) {
 							  $sessionStorage.accessToken = success.token;
 							  principal.set(success.principal);
+							  principal.setAuthenticated(true);
 							  $location.path($sessionStorage.destUrl);
 							  console.log('success in attempted login :' + success.token);
 						  }, 
@@ -357,6 +357,9 @@
 				this.authenticated = true;
 				this.principal = principal;
 				this.fetch();
+			},
+			setAuthenticated: function(auth) {
+				this.authenticated = auth;
 			},
 			isAuthenticated: function() {
 				return this.authenticated;
@@ -683,7 +686,8 @@ angular.module('configApp').factory('flashMessageService', ['$translate', '$root
 		config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 			$stateProvider.state('admin', {
 				url: '/admin',
-				templateUrl: 'base/app/admin/admin-properties.tpl.html'
+				templateUrl: 'base/app/admin/admin-properties.tpl.html',
+				authRequired: true
 			});
 	}]);
 })();
