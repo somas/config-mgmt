@@ -9,14 +9,16 @@
         </thead>
         <tbody>
         <tr ng-repeat="(key, val) in propertyJson">
-            <td><input id="key_{{index}}" type="text" name="key" ng-model="key"></td>
-            <td><input id="value_{{index}}" type="text" name="value" ng-model="val" ng-change="jsonTable.change($index)"/></td>
+            <td><input class="form-control" id="key_{{$index}}" type="text" name="key" ng-model="key"></td>
+            <td><textarea class="form-control" id="value_{{$index}}" type="textarea" name="value" ng-model="val" ng-blur="jsonTable.change($index)"/></td>
             <td>
-                <button ng-click="jsonTable.delete(key)">-</button>
+                <button class="xsmall" ng-click="jsonTable.delete(key)">-</button>
             </td>
         </tr>
         <tr>
-            <td><button id="add">+</button></td>
+            <td><button class="xsmall" id="add">+</button></td>
+            <td></td>
+            <td></td>
         </tr>
         </tbody>
     </table>

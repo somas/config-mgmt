@@ -88,9 +88,9 @@
                     var key = $("#key_" + id).val();
                     var value = $("#value_" + id).val();
 
-                    if(key !== '') {
+                    if(angular.isDefined(key) && key !== '') {
                         scope.propertyJson[key] = value;
-                        scope.$apply(function () {
+                        scope.safeApply(function () {
                             scope.data = angular.toJson(scope.propertyJson);
                         });
                     }
@@ -98,9 +98,22 @@
                     $("#row_" + id).remove();
                 };
 
+                scope.safeApply = function(fn) {
+                    var phase = this.$root.$$phase;
+                    if(phase == '$apply' || phase == '$digest') {
+                        if(fn && (typeof(fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
                 $("#add").click(function() {
 
-                    var newRow = ('<tr id="row_PRONTO"><td><input id="key_PRONTO" type="text" name="key" ng-model="key"></td><td><input id="value_PRONTO" type="text" name="value" ng-model="val" ng-change="jsonTable.change(PRONTO)"/></td><td><button ng-click="jsonTable.delete(PRONTO)">-</button></td></tr>');
+                    var newRow = ('<tr id="row_PRONTO"><td><input class="form-control" id="key_PRONTO" type="text" name="key" ng-model="key"></td>' +
+                    '<td><textarea class="form-control" id="value_PRONTO" type="text" name="value" ng-model="val" ng-blur="jsonTable.change(PRONTO)"/></td>' +
+                    '<td><button class="xsmall" ng-click="jsonTable.delete(PRONTO)">-</button></td></tr>');
                     var id = $('#jsonTable tbody>tr').size();
                     var res = newRow.replace(/PRONTO/g, id);
                     if($('#jsonTable tbody>tr:nth-last-child(2)').size() > 0) {
@@ -112,9 +125,6 @@
                     $( "#value_" + id).change(function() {
                         scope.jsonTable.change(id);
                     });
-                    //$('#jsonTable tbody>tr:nth-last-child(2)').clone(true).insertAfter('#jsonTable tbody>tr:nth-last-child(2)');
-                    //$('#jsonTable tbody>tr:nth-last-child(2) #key').val('');
-                    //$('#jsonTable tbody>tr:nth-last-child(2) #value').val('');
                     return false;
                 });
 	        }
@@ -771,14 +781,16 @@ angular.module("base/common/directives/json-table.tpl.html", []).run(["$template
     "        </thead>\n" +
     "        <tbody>\n" +
     "        <tr ng-repeat=\"(key, val) in propertyJson\">\n" +
-    "            <td><input id=\"key_{{index}}\" type=\"text\" name=\"key\" ng-model=\"key\"></td>\n" +
-    "            <td><input id=\"value_{{index}}\" type=\"text\" name=\"value\" ng-model=\"val\" ng-change=\"jsonTable.change($index)\"/></td>\n" +
+    "            <td><input class=\"form-control\" id=\"key_{{$index}}\" type=\"text\" name=\"key\" ng-model=\"key\"></td>\n" +
+    "            <td><textarea class=\"form-control\" id=\"value_{{$index}}\" type=\"textarea\" name=\"value\" ng-model=\"val\" ng-blur=\"jsonTable.change($index)\"/></td>\n" +
     "            <td>\n" +
-    "                <button ng-click=\"jsonTable.delete(key)\">-</button>\n" +
+    "                <button class=\"xsmall\" ng-click=\"jsonTable.delete(key)\">-</button>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "        <tr>\n" +
-    "            <td><button id=\"add\">+</button></td>\n" +
+    "            <td><button class=\"xsmall\" id=\"add\">+</button></td>\n" +
+    "            <td></td>\n" +
+    "            <td></td>\n" +
     "        </tr>\n" +
     "        </tbody>\n" +
     "    </table>\n" +
