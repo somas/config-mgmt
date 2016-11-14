@@ -1,12 +1,18 @@
 version: '2'
 services:
   discovery-server:
+    build:
+      context: ./discovery-server
+      dockerfile: ./docker/Dockerfile
     image: config-mgmt/discovery-server
     expose:
       - "8761"
     ports:
       - "8761:8761"
   config_server:
+    build:
+      context: ./config-server
+      dockerfile: ./docker/Dockerfile
     image: config-mgmt/config-server
     expose:
       - "9080"
@@ -25,6 +31,9 @@ services:
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: db_config
   config_client:
+    build:
+      context: ./config-client
+      dockerfile: ./docker/Dockerfile
     image: config-mgmt/config-client
     expose:
       - "9090"

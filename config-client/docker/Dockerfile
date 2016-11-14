@@ -1,5 +1,5 @@
 FROM java:8
 VOLUME /tmp
-ADD config-client.jar app.jar
+ADD build/libs/config-client.jar app.jar
 RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

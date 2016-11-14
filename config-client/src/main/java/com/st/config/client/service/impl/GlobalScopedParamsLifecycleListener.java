@@ -18,6 +18,8 @@ public class GlobalScopedParamsLifecycleListener implements SmartLifecycle {
     public void start() {
         logger.info("--- Ready to initialize globalScopedParameters ---");
         ((GlobalScopedParamsImpl)globalScopedParams).initialize();
+        logger.info("-------------> " + globalScopedParams.get("demo1", "config-server", "x", "default"));
+        logger.info("-------------> " + globalScopedParams.get("demo2", "config-server", "a", "shouldn't work"));
     }
 
     @Override
